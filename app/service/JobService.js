@@ -1,7 +1,7 @@
 const axios = require('axios');
 axios.defaults.baseURL = process.env.API_URL;
 
-module.exports.URL = '/hr/job-roles'; // path to be decided
+module.exports.URL = 'http://localhost:8080/hr/job-roles'; // path to be decided
 
 // get the all of the job roles available
 module.exports.getJobRoles = async function () {

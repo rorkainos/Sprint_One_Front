@@ -14,7 +14,7 @@ router.get('/jobroles', async (req, res) => {
         console.error(e);
     }
     
-    res.render('jobsroles', { jobroles: data } ) 
+    res.render('jobroles', { jobroles: data } ) 
 });
 
 module.exports = router
