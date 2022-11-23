@@ -19,9 +19,9 @@ describe('JobService', function () {
       it('should return list of job roles when getJobRoles called', async () => {
 
         let data = [
-            {Name:"name1"},
-            {Name:"name2"},
-            {Name:"name3"}
+            {Name:"name1", bandlevel: 'b1'},
+            {Name:"name2", bandlevel: 'b2'},
+            {Name:"name3", bandlevel: 'b3'}
         ];
         
         // mocking a good response from the endpoint
@@ -32,6 +32,10 @@ describe('JobService', function () {
         expect(response[0].Name).to.equal('name1')
         expect(response[1].Name).to.equal('name2')
         expect(response[2].Name).to.equal('name3')
+
+        expect(response[0].bandlevel).to.equal('b1')
+        expect(response[1].bandlevel).to.equal('b2')
+        expect(response[2].bandlevel).to.equal('b3')
       })
 
       it('should return empty list of job roles when getJobRoles called', async () => {
