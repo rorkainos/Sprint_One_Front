@@ -17,7 +17,7 @@ describe('JobService', function () {
         
         // mocking a good response from the endpoint
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.URL).reply(() => {return [200, data]});
+        mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
        
         var response = await JobService.getJobRoles()
         expect(response[0].Name).to.equal('name1')
@@ -31,7 +31,7 @@ describe('JobService', function () {
         
         // mocking a good response from the endpoint
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.URL).reply(() => {return [200, data]});
+        mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
        
         var response = await JobService.getJobRoles()
         expect(response).is.empty
