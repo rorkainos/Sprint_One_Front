@@ -5,6 +5,10 @@ module.exports.GET_JOB_ROLES =  '/hr/job-roles';
 
 // get all of the job roles available
 module.exports.getJobRoles = async function () {
-    const response = await axios.get(this.GET_JOB_ROLES);
-    return response.data;
+    try{
+        const response = await axios.get(this.GET_JOB_ROLES);
+        return response.data;
+    }catch{
+        return new Error('Could not get Job Roles')
+    }
 }
