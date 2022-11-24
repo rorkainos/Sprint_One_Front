@@ -29,12 +29,21 @@ describe('JobService', function () {
 
         let data = [];
         
-        // mocking a good response from the endpoint
+        // mocking a good response from the endpoint with an empty list returned
         var mock = new MockAdapter(axios);
         mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
        
         var response = await JobService.getJobRoles()
         expect(response).is.empty
+      })
+
+      it('should return error Could not get Job Roles', async () => {        
+        // mocking an error 500 response from backend
+        var mock = new MockAdapter(axios);
+        mock.onGet(JobService.GET_JOB_ROLES).reply(500);
+       
+        var error = await JobService.getJobRoles()
+        expect(error.message).to.equal('Could not get Job Roles')
       })
     })
   })
