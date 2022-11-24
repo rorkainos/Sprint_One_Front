@@ -1,0 +1,35 @@
+{% extends "layout.html" %} 
+
+{% block pageTitle %} 
+  Job Roles
+{% endblock %} 
+ 
+{% block content %}
+
+<h2>List of Job Roles</h2>
+
+{% if errormessage %} 
+  <div class="govuk-error-message">{{ errormessage }}</div>
+  
+{% else %}
+
+  {% if jobroles and jobroles.length > 0 %} 
+  {% set jobRolesrows = [] %} 
+  {% for jobRole in jobroles %}
+  {% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }]), jobRolesrows) %} 
+  {% endfor %} 
+
+  {{govukTable({ 
+      head: [ { text: "Name" } ], 
+      rows: jobRolesrows }) 
+  }} 
+
+  {% else %}
+
+  There are no Job Roles. 
+
+  {% endif %}
+
+{% endif %}
+
+{% endblock %}
