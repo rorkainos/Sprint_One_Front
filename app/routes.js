@@ -11,7 +11,7 @@ router.get('/jobroles', async (req, res) => {
     try {
        data = await JobService.getJobRoles();
     } catch (e) {
-        console.error(e);
+        res.locals.errormessage = "An error occured when retrieving the list of Job Roles"
     }
     
     res.render('jobroles', { jobroles: data } ) 

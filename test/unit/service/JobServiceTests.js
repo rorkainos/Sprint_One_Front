@@ -6,15 +6,6 @@ const JobService = require('../../../app/service/JobService');
 
 describe('JobService', function () {
     describe('getJobRoles', function () {
-      it('should return Could not get job roles error if no job roles', async () => {
-        
-        // mocking axios with the speicifc URL stated in the JobService
-        var mock = new MockAdapter(axios);
-        mock.onGet(JobService.URL).reply(500);
-       
-        var error = await JobService.getJobRoles()
-        expect(error.message).to.equal('Could not get job roles')
-      })
 
       it('should return list of job roles when getJobRoles called', async () => {
 
@@ -26,7 +17,7 @@ describe('JobService', function () {
         
         // mocking a good response from the endpoint
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.URL).reply(() => {return [200, data]});
+        mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
        
         var response = await JobService.getJobRoles()
         expect(response[0].name).to.equal('name1')
@@ -44,7 +35,7 @@ describe('JobService', function () {
         
         // mocking a good response from the endpoint
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.URL).reply(() => {return [200, data]});
+        mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
        
         var response = await JobService.getJobRoles()
         expect(response).is.empty

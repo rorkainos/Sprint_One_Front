@@ -8,20 +8,27 @@
 
 <h2>List of Job Roles</h2>
 
-{% if jobroles and jobroles.length > 0 %} 
-{% set jobRolesrows = [] %} 
-{% for jobRole in jobroles %}
-{% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }, {text: jobRole.capability }]), jobRolesrows) %} 
-{% endfor %} 
-
-{{govukTable({ 
-    head: [ { text: "Name" }, { text: "Capability" } ], 
-    rows: jobRolesrows }) 
-}} 
+{% if errormessage %} 
+  <div class="govuk-error-message">{{ errormessage }}</div>
 
 {% else %}
 
-There are no Job Roles. 
+  {% if jobroles and jobroles.length > 0 %} 
+  {% set jobRolesrows = [] %} 
+  {% for jobRole in jobroles %}
+  {% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }, {text: jobRole.capability }]), jobRolesrows) %} 
+  {% endfor %} 
+
+  {{govukTable({ 
+      head: [ { text: "Name" }, { text: "Capability" }], 
+      rows: jobRolesrows }) 
+  }} 
+
+  {% else %}
+
+  There are no Job Roles. 
+
+  {% endif %}
 
 {% endif %}
 
