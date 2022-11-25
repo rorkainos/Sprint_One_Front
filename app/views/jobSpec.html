@@ -1,0 +1,21 @@
+{% extends "layout.html" %} 
+
+{% block pageTitle %} 
+  Job Roles
+{% endblock %} 
+ 
+{% block content %}
+
+<h2>Job Specification</h2>
+
+{% if errormessage %} 
+  <div class="govuk-error-message">{{ errormessage }}</div>
+{% else %}
+
+<div>{{ jobSpecification }}</div>
+
+//TODO put link back into jobroles table
+
+{% endif %}
+
+{% endblock %}

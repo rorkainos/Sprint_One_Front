@@ -16,13 +16,16 @@
   {% if jobroles and jobroles.length > 0 %} 
   {% set jobRolesrows = [] %} 
   {% for jobRole in jobroles %}
-  {% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }]), jobRolesrows) %} 
+  {% set jobRolesrows = (jobRolesrows.push([ { text: jobRole.name } ]), jobRolesrows) %} 
   {% endfor %} 
 
   {{govukTable({ 
       head: [ { text: "Name" } ], 
       rows: jobRolesrows }) 
   }} 
+
+  //TODO build a proper request and put in each row of the table
+  <a href="./jobSpec?id=1?name=Test">dcdc</a>
 
   {% else %}
 
