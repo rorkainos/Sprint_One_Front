@@ -1,38 +1,48 @@
-{% extends "layout.html" %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Job Roles</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
-{% block pageTitle %} 
-  Job Roles
-{% endblock %} 
- 
+<body>
+
 {% block content %}
 
 <h2>List of Job Roles</h2>
 
 {% if errormessage %} 
-  <div class="govuk-error-message">{{ errormessage }}</div>
-  
+  <div class="alert alert-danger">{{ errormessage }}</div>
 {% else %}
 
-  {% if jobroles and jobroles.length > 0 %} 
-  {% set jobRolesrows = [] %} 
-  {% for jobRole in jobroles %}
+    {% if jobroles and jobroles.length > 0 %} 
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
 
-  {% set editlink = "http://localhost:3000/editjobroles?id=" + jobRole.id %}
-  {% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }, {html: editlink | urlize}]), jobRolesrows) %} 
-  {% endfor %} 
+        <tbody>
+          {% for row in jobroles %}
+          <tr> 
+            <td><a href="./jobSpec?id={{row.id}}&name={{row.name}}" target="_blank">{{row.name}}</a></td>
+            <td><a href="./editjobroles?id={{row.id}}">edit</a></td>
+          </tr>
+            {% endfor %}
+        </tbody>
 
-  {{govukTable({ 
-      head: [ { text: "Name" } ], 
-      rows: jobRolesrows 
-    }) 
-  }} 
-
-  {% else %}
-
-  There are no Job Roles. 
-
-  {% endif %}
+    {% else %}
+      There are no Job Roles. 
+    {% endif %}
 
 {% endif %}
 
 {% endblock %}
+
+</body>
+</html>

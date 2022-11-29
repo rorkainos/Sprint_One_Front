@@ -33,7 +33,32 @@ router.post('/editjobroles', async (req, res) => {
     if (error) {
         res.render('editjobroles', { error: error, data: req.body})
     }
+});
 
+// render the jobSpec Page with id and name passed in the request
+router.get('/jobspec', async (req, res) => {
+    let id = req.query.id;
+    let name = req.query.name;
+
+    try {
+        jobSpecification = await JobService.getJobSpecification(id);
+
+        let jobSpec = {
+            jobSpecification: jobSpecification.job_spec,
+            jobRoleName:name 
+        }
+
+        res.render('jobSpec', { jobSpecification: jobSpec } )
+        
+    }catch (err) {
+        if (name) {
+            res.locals.errormessage = "An error occured when retrieving the job specification for " + name;
+        }else{
+            res.locals.errormessage = "An error occured when retrieving the job specification";
+        }   
+        
+        res.render('jobSpec') 
+    }
 });
 
 module.exports = router
