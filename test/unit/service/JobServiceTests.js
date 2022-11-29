@@ -2,7 +2,6 @@ var axios = require('axios');
 var MockAdapter = require('axios-mock-adapter');
 var chai = require('chai');  
 const expect = chai.expect;
-const assert = chai.assert;
 const JobService = require('../../../app/service/JobService');
 
 describe('JobService', function () {
