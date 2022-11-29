@@ -159,13 +159,12 @@
 
       <div class="govuk-form-group">
         <h1 class="govuk-label-wrapper">
-          <label class="govuk-label" for="jobRoleName">
+          <label class="govuk-label" for="name">
       Role Name
     </label>
         </h1>
-        <input class="govuk-input" id="jobRoleName" name="jobRoleName" type="text" >
+        <input class="govuk-input" id="name" name="name" type="text" value="{{data.name}}">
       </div>
-
       <div class="govuk-form-group">
   <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec">
       Job Spec
@@ -197,21 +196,30 @@
     <option value="AI">AI</option>
   </select>
 </div>
-        </div>
+       
+</div>
         <div class="govuk-grid-column-one-half">
 <div class="govuk-form-group">
   <label class="govuk-label" for="bandLevel">
     Band Level 
   </label>
-  <select class="govuk-select" id="bandLevel" name="bandLevel" >
-        <option value="">Select one</option>
-    <option value="Trainee">Trainee</option>
-    <option value="Associate" >Associate</option>
-    <option value="Senior">Senior</option>
+  <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandName}}" >
+    {% if  data.bandName.length > 1%}
+      <option value={{data.bandLevel}}>{{data.bandName}}</option>
+    {% else  %}
+      <option value="" >Select one...</option>
+    {% endif %}
+    {% for bl in formData.bandList %}
+      <option value="{{bl.band_level_id}}">{{bl.band_name}}</option>
+    {% endfor %}
   </select>
 </div>
         </div>
-      </div>
+
+        
+       
+ 
+     
 
       {{ govukButton({
   text: "Save and continue"

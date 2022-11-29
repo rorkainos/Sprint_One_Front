@@ -19,10 +19,15 @@ router.get('/jobroles', async (req, res) => {
     res.render('jobroles', { jobroles: data } ) 
 });
 
-router.get('/editjobroles' , async (req, res) => {
-
-    console.log(req.query.id)
-    res.render('editjobroles')
+router.get('/editjobroles/:id' , async (req, res) => {
+    let id = req.params.id
+    console.log(id);    
+    let response = await JobService.getJobRoles();
+    let y = await JobService.getJobRoleInfo();
+    console.log(response[id-1])
+    let x = (response[id-1])
+    console.log(y)
+    res.render('editjobroles', {data:x, formData: y})
 });
 
 

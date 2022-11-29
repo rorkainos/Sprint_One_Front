@@ -31,7 +31,7 @@
           {% for row in jobroles %}
           <tr> 
             <td><a href="./jobSpec?id={{row.id}}&name={{row.name}}" target="_blank">{{row.name}}</a></td>
-            <td><a href="./editjobroles?id={{row.id}}">edit</a></td>
+            <td><a href="./editjobroles/{{row.id}}">edit</a></td>
           </tr>
             {% endfor %}
         </tbody>
