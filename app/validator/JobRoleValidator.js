@@ -3,19 +3,19 @@ module.exports.validateJobRole = function (jobRole) {
     let error = {};
 
     if (jobRole.jobRoleName.length === 0) {
-        return {nameError: "Job Role name cannot be empty"};
+        return {nameError: "Job Role name cannot be empty."};
     }
 
-    if (jobRole.jobRoleName.length >= 10) {
+    if (jobRole.jobRoleName.length >= 100) {
         return {nameError: "Job Role name is too long. Must not exceed 100 characters."};
     }
 
     if (jobRole.jobSpec.length === 0) {
-        return {specError: "Job Spec cannot be empty"};
+        return {specError: "Job Spec cannot be empty."};
     }
 
-    if (jobRole.jobSpec.length >= 500) {
-        return {specError: "Job Spec is too long. Must not exceed 100 characters."};
+    if (jobRole.jobSpec.length >= 1000) {
+        return {specError: "Job Spec is too long. Must not exceed 1000 characters."};
     }
 
     if (jobRole.jobSpecURL.length > 0) {

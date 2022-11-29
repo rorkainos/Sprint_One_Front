@@ -41,9 +41,33 @@ describe('JobService', function () {
         // mocking an error 500 response from backend
         var mock = new MockAdapter(axios);
         mock.onGet(JobService.GET_JOB_ROLES).reply(500);
-       
-        var error = await JobService.getJobRoles()
-        expect(error.message).to.equal('Could not get Job Roles')
+       try{
+        await JobService.getJobRoles();
+       }catch(error){
+        expect(error.message).to.equal('Could not get Job Roles.');
+       }
       })
+    })
+
+    describe('insertJobRole', async function (){
+
+      it('should receive 201 when job role inserted')
+
+      var mock = new MockAdapter(axios);
+
+        let jobRole = {
+          jobRoleName : "Software Engineer",
+          jobSpec: "This is a new job",
+          jobSpecURL: "https://trello.com/c/VjAxt81I/12-us012-add-new-role-to-existing-job-family-and-band-8",
+          jobFamily: 1,
+          bandLevel: 1
+        }
+
+      mock.onPost(JobService.insertJobRole(jobRole)).reply(201);
+
+      var results = await JobService.insertJobRole(jobRole)
+
+      expect(results).to.equal(201)
+
     })
   })
