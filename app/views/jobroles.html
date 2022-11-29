@@ -1,38 +1,47 @@
-{% extends "layout.html" %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Job Roles</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
 
-{% block pageTitle %} 
-  Job Roles
-{% endblock %} 
- 
+<body>
+
 {% block content %}
 
 <h2>List of Job Roles</h2>
 
 {% if errormessage %} 
-  <div class="govuk-error-message">{{ errormessage }}</div>
-  
+  <div class="alert alert-danger">{{ errormessage }}</div>
 {% else %}
 
-  {% if jobroles and jobroles.length > 0 %} 
-  {% set jobRolesrows = [] %} 
-  {% for jobRole in jobroles %}
-  {% set jobRolesrows = (jobRolesrows.push([ { text: jobRole.name } ]), jobRolesrows) %} 
-  {% endfor %} 
+    {% if jobroles and jobroles.length > 0 %} 
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+          </tr>
+        </thead>
 
-  {{govukTable({ 
-      head: [ { text: "Name" } ], 
-      rows: jobRolesrows }) 
-  }} 
+        <tbody>
+          {% for row in jobroles %}
+          <tr> 
+            <td><a href="./jobSpec?id={{row.id}}&name={{row.name}}" target="_blank">{{row.name}}</a></td>
+          </tr>
+            {% endfor %}
+        </tbody>
 
-  //TODO build a proper request and put in each row of the table
-  <a href="./jobSpec?id=1?name=Test">dcdc</a>
-
-  {% else %}
-
-  There are no Job Roles. 
-
-  {% endif %}
+    {% else %}
+      There are no Job Roles. 
+    {% endif %}
 
 {% endif %}
 
 {% endblock %}
+
+</body>
+</html>
