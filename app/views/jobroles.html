@@ -16,12 +16,15 @@
   {% if jobroles and jobroles.length > 0 %} 
   {% set jobRolesrows = [] %} 
   {% for jobRole in jobroles %}
-  {% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }]), jobRolesrows) %} 
+
+  {% set editlink = "http://localhost:3000/editjobroles?id=" + jobRole.id %}
+  {% set jobRolesrows = (jobRolesrows.push([{ text: jobRole.name }, {html: editlink | urlize}]), jobRolesrows) %} 
   {% endfor %} 
 
   {{govukTable({ 
       head: [ { text: "Name" } ], 
-      rows: jobRolesrows }) 
+      rows: jobRolesrows 
+    }) 
   }} 
 
   {% else %}

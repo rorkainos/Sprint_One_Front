@@ -12,3 +12,5 @@ module.exports.getJobRoles = async function () {
         return new Error('Could not get Job Roles')
     }
 }
+
+exports.edit

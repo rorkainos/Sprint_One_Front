@@ -1,0 +1,224 @@
+<!-- {% extends "layout.html" %} 
+
+
+
+<form class="form" action="/editroles" method="PUT">
+    <div class="container">
+      <h1>Register</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+  
+      <label for="fname"><b>Role</b></label>
+      <input type="text" placeholder="Enter First Name" name="fname" id="fname" required>
+  
+      <label for="lname"><b>Job spec</b></label>
+      <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required>
+  
+      <label for="NIN"><b>NIN</b></label>
+      <input type="text" placeholder="NIN" name="NIN" id="NIN" required>
+      <hr>
+  
+      <label for="bank_account"><b>Bank Account</b></label>
+      <input type="text" placeholder="Bank Account" name="bank_account" id="bank_account" required>
+      <hr>
+  
+        <label for="address"><b>Address</b></label>
+      <input type="text" placeholder="Address" name="address" id="address" required>
+      <hr>
+  
+        <label for="salary"><b>Start Salary</b></label>
+      <input type="number" placeholder="Start Salary" name="salary" id="salary" required>
+      <hr>
+  
+      <label for="comission"><b>Comission</b></label>
+      <input type="number" placeholder="comission" name="comission" id="comission" required>
+      <hr>
+  
+          <label for="totalsales"><b>Total Sales</b></label>
+      <input type="number" placeholder="totalsales" name="totalsales" id="totalsales" required>
+      <hr>
+        
+        <h1> Is this person a manager </h1>
+        <input type="radio" id="True" name="isManager" value="True">
+    <label for="True">Yes</label><br>
+    <input type="radio" id="False" name="isManager" value="False">
+    <label for="False">No</label><br>
+  
+      <button type="submit" class="registerbtn">Register</button>
+    </div>
+    
+  </form>
+-->
+
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} 
+  Add New Job Role
+{% endblock %}
+
+{% block content %}
+
+  <h2 class="govuk-heading-l">Edit Job Role</h2>
+
+  {% if error %}
+
+    {% if error.nameError %}
+<div class="govuk-error-message">{{ error.nameError }}</div>
+    {% endif %}
+
+    <form name="jobRoleForm" action="/editjobroles" onsubmit="" method="post">
+
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label" for="jobRoleName">
+      Role Name
+    </label>
+        </h1>
+        <input class="govuk-input" id="jobRoleName" name="jobRoleName" value="{{data.jobRoleName}}" type="text" >
+      </div>
+
+    {% if error.specError %}
+<div class="govuk-error-message">{{ error.specError }}</div>
+    {% endif %}
+      <div class="govuk-form-group">
+  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec">
+      Job Spec
+    </label>
+  </h1>
+  <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint">{{data.jobSpec}}</textarea>
+</div>
+
+    {% if error.specURLError %}
+<div class="govuk-error-message">{{ error.specURLError }}</div>
+    {% endif %}
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label" for="jobSpecURL">
+      Job Spec URL
+    </label>
+        </h1>
+        <input class="govuk-input" id="jobSpecURL" value="{{data.jobSpecURL}}" name="jobSpecURL" type="text" >
+      </div>
+
+    {% if error.jobFamilyError %}
+<div class="govuk-error-message">{{ error.jobFamilyError }}</div>
+    {% endif %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+<div class="govuk-form-group">
+  <label class="govuk-label" for="sort">
+    Job Family
+  </label>
+  <select class="govuk-select" id="jobFamily" name="jobFamily" value="{{data.jobFamily}}" >
+        {% if  data.jobFamily.length > 1%}
+        <option value={{data.jobFamily}}>{{data.jobFamily}}</option>
+        {% else  %}
+    <option value="" >Select one...</option>
+    {% endif %}
+    <option value="Data" >Data</option>
+    <option value="Testing">Testing</option>
+    <option value="AI">AI</option>
+  </select>
+</div>
+        </div>
+
+
+
+        <div class="govuk-grid-column-one-half">
+
+              {% if error.bandLevelError %}
+<div class="govuk-error-message">{{ error.bandLevelError }}</div>
+    {% endif %}
+<div class="govuk-form-group">
+  <label class="govuk-label" for="bandLevel">
+    Band Level 
+  </label>
+  <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandLevel}}" >
+    {% if  data.bandLevel.length > 1%}
+        <option value={{data.bandLevel}}>{{data.bandLevel}}</option>
+                {% else  %}
+    <option value="" >Select one...</option>
+    {% endif %}
+    <option value="Trainee">Trainee</option>
+    <option value="Associate" >Associate</option>
+    <option value="Senior">Senior</option>
+  </select>
+</div>
+        </div>
+      </div>
+
+      {{ govukButton({
+  text: "Save and continue"
+}) }}
+
+    </form>
+
+  {% else %}
+
+    <form name="jobRoleForm" action="/editjobroles" onsubmit=""  method="post">
+
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label" for="jobRoleName">
+      Role Name
+    </label>
+        </h1>
+        <input class="govuk-input" id="jobRoleName" name="jobRoleName" type="text" >
+      </div>
+
+      <div class="govuk-form-group">
+  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec">
+      Job Spec
+    </label>
+  </h1>
+  <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint"></textarea>
+</div>
+
+
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label" for="jobSpecURL">
+      Job Spec URL
+    </label>
+        </h1>
+        <input class="govuk-input" id="jobSpecURL" name="jobSpecURL" type="text" >
+      </div>
+
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+<div class="govuk-form-group">
+  <label class="govuk-label" for="sort">
+    Job Family
+  </label>
+  <select class="govuk-select" id="jobFamily" name="jobFamily" >
+    <option value="">Select one</option>
+    <option value="Data" >Data</option>
+    <option value="Testing">Testing</option>
+    <option value="AI">AI</option>
+  </select>
+</div>
+        </div>
+        <div class="govuk-grid-column-one-half">
+<div class="govuk-form-group">
+  <label class="govuk-label" for="bandLevel">
+    Band Level 
+  </label>
+  <select class="govuk-select" id="bandLevel" name="bandLevel" >
+        <option value="">Select one</option>
+    <option value="Trainee">Trainee</option>
+    <option value="Associate" >Associate</option>
+    <option value="Senior">Senior</option>
+  </select>
+</div>
+        </div>
+      </div>
+
+      {{ govukButton({
+  text: "Save and continue"
+}) }}
+
+    </form>
+
+  {% endif %}
+
+{% endblock %}
