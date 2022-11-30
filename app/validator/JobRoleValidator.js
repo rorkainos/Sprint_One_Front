@@ -2,11 +2,11 @@ module.exports.validateJobRole = function (jobRole) {
 
     let error = {};
 
-    if (jobRole.jobRoleName.length === 0) {
+    if (jobRole.name.length === 0) {
         return {nameError: "Job Role must be entered"};
     }
 
-    if (jobRole.jobRoleName.length >= 10) {
+    if (jobRole.name.length >= 10) {
         return {nameError: "Job Role name cannot exceed 100 characters."};
     }
 

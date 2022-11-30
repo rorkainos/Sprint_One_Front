@@ -5,7 +5,8 @@ module.exports.GET_JOB_ROLES =  '/hr/job-roles';
 module.exports.GET_JOB_SPEC =  '/hr/job-specification/';
 module.exports.GET_ROLE = '/hr/'
 module.exports.GET_JOB_ROLE_INFO =  '/hr/job-role-info';
-module.exports.GET_EDIT_ROLE = '/hr/get-edit-role/';
+module.exports.GET_EDIT_ROLE = '/hr/edit-role/';
+module.exports.POST_EDIT_ROLE = '/hr/edit-role/';
 
 // get all of the job roles available
 module.exports.getJobRoles = async function () {
@@ -34,7 +35,7 @@ module.exports.getJobRoleInfo = async function () {
 
 module.exports.getEditRole = async function (jobID) {
     try{
-        const response = await axios.get(this.GET_EDIT_ROLE + jobID);
+        const response = await axios.get(this.POST_EDIT_ROLE + jobID);
         return response.data;
     }
     catch{ 
@@ -52,6 +53,20 @@ module.exports.getBandAndFamily = function (y,band_level_id,job_family_id) {
    return bandFamily;
 
 }
+
+module.exports.postEditRole = async function (data) {
+    try {
+        console.log("hi!")
+        // post request to add new job role
+        const response = await axios.put(this.POST_EDIT_ROLE, data);
+        return response.data;
+    } catch (e){
+        // throw exception if call fails
+        console.log(e)
+        throw new Error('Could not create new Job Roles.')
+    }
+}
+
 
 module.exports.getJobSpecification = async function (jobID) {
     try{
