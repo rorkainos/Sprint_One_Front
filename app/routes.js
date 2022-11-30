@@ -21,20 +21,19 @@ router.get('/jobroles', async (req, res) => {
 
 router.get('/editjobroles/:id' , async (req, res) => {
     let id = req.params.id
+    let jobRoleID = {id : id}
     let response = await JobService.getEditRole(id);
     let y = await JobService.getJobRoleInfo();
     let x = await JobService.getBandAndFamily(y,response.band_level_id,response.job_family_id);
-    //console.log(x);
-    response = Object.assign(response,x);
-    //console.log(response);
+    response = Object.assign(response,x,jobRoleID);
     res.render('editjobroles', {data:response, formData: y})
 });
 
 
-router.post('/editjobroles/', async (req, res) => {
+router.post('/editjobroles', async (req, res) => {
 
-    let id = req.params.id
-    console.log(id);
+    //let id = req.params.id
+    //console.log(id);
     console.log("hi!!")
     console.log(req.body)
     let error = new JobRoleValidator.validateJobRole(req.body);
