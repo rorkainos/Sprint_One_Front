@@ -22,22 +22,45 @@ router.get('/jobroles', async (req, res) => {
 // render the addjobroles.html page 
 router.get('/addjobrole', async (req, res) => {
 
+    // get data for populating job family and band level dropdowns
     data = await JobService.getJobRoleInfo();
-    res.render('addjobrole', {formData:data});
+    // render form page
+
+    res.render('addjobrole', { formData: data });
 
 });
 
 // render the addjobroles.html page 
 router.post('/addjobrole', async (req, res) => {
 
+    // validate job role
     let error = new JobRoleValidator.validateJobRole(req.body);
-    let data = await JobService.getJobRoleInfo();
 
     if (Object.keys(error).length !== 0) {
-        res.render('addjobrole', { error: error, data: req.body, formData:data})
+        // get data for populating job family and band level dropdowns
+        let data = await JobService.getJobRoleInfo();
+
+        // parse job family and band level data passed from form into JSON
+        if (req.body.jobFamily != '') {
+            req.body.jobFamily = JSON.parse(req.body.jobFamily)
+        }
+        if (req.body.bandLevel != '') {
+            req.body.bandLevel = JSON.parse(req.body.bandLevel)
+        }
+
+        // render page again with errors and previous form data
+        res.render('addjobrole', { error: error, data: req.body, formData: data })
     } else {
+
+        // remove names from job family and band level fields in response data
+        req.body.jobFamily = JSON.parse(req.body.jobFamily).jobFamilyID;
+        req.body.bandLevel = JSON.parse(req.body.bandLevel).bandLevelID;
+        
+        // insert new job
         js.insertJobRole(req.body)
-        res.render('jobroles')
+
+        // redirect to job roles page
+        res.redirect('/jobroles')
     }
 
 });

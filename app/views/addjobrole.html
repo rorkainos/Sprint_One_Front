@@ -17,6 +17,7 @@
   {# START FORM #}
   <form name="jobRoleForm" method="post">
 
+    {# ROLE NAME FIELD #}
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label" for="jobRoleName">
@@ -31,14 +32,22 @@
       <div class="govuk-error-message">{{ error.specError }}</div>
     {% endif %}
     <div class="govuk-form-group">
+
+      {# JOB SPEC TITLE AND CHARACTERS ROW #}
       <div class="govuk-grid-row">
+
+        {# JOB SPEC COLUMN #}
         <div class="govuk-grid-column-one-half">
+
+          {# JOB SPEC FIELD #}
           <h1 class="govuk-label-wrapper">
             <label class="govuk-label" for="jobSpec">
       Job Spec
     </label>
           </h1>
         </div>
+
+        {# CHARACTERS REMAINING COLUMN #}
         <div class="govuk-grid-column-one-half">
           <p id='specLength'>Characters remaining: 1000</p>
         </div>
@@ -50,6 +59,8 @@
     {% if error.specURLError %}
       <div class="govuk-error-message">{{ error.specURLError }}</div>
     {% endif %}
+
+    {# JOB SPEC URL FIELD #}
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label" for="jobSpecURL">
@@ -63,42 +74,52 @@
     {% if error.jobFamilyError %}
       <div class="govuk-error-message">{{ error.jobFamilyError }}</div>
     {% endif %}
+
+    {# JOB FAMILY AND BAND LEVEL ROW #}
     <div class="govuk-grid-row">
+
+      {# JOB FAMILY COLUMN #}
       <div class="govuk-grid-column-one-half">
+
+        {# JOB FAMILY FIELD #}
         <div class="govuk-form-group">
           <label class="govuk-label" for="sort">
     Job Family
   </label>
-          <select class="govuk-select" id="jobFamily" name="jobFamily" value="{{data.jobFamily}}" >
-            {% if  data.jobFamily.length > 1%}
-              <option value={{data.jobFamily}}>{{data.jobFamily}}</option>
+          <select class="govuk-select" id="jobFamily" name="jobFamily" >
+            {% if  data.jobFamily.jobFamilyName.length >= 1%}
+              <option value='{"jobFamilyID":{{data.jobFamily.jobFamilyID}},"jobFamilyName":"{{data.jobFamily.jobFamilyName}}"}'>{{data.jobFamily.jobFamilyName}}</option>
             {% else  %}
               <option value="" >Select one...</option>
             {% endif %}
             {% for jfl in formData.jobFamilyList %}
-              <option value="{{jfl.job_family_id}}">{{jfl.family_name}}</option>
+              <option value='{"jobFamilyID":{{jfl.job_family_id}},"jobFamilyName":"{{jfl.family_name}}"}'>{{jfl.family_name}}</option>
             {% endfor %}
           </select>
         </div>
       </div>
 
+      {# BAND LEVEL COLUMN  #}
       <div class="govuk-grid-column-one-half">
+
         {# BAND LEVEL ERROR HEADING #}
         {% if error.bandLevelError %}
           <div class="govuk-error-message">{{ error.bandLevelError }}</div>
         {% endif %}
+
+        {# BAND LEVEL FIELD #}
         <div class="govuk-form-group">
           <label class="govuk-label" for="bandLevel">
     Band Level 
   </label>
-          <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandLevel}}" >
-            {% if  data.bandLevel.length > 1%}
-              <option value={{data.bandLevel}}>{{data.bandLevel}}</option>
+          <select class="govuk-select" id="bandLevel" name="bandLevel" >
+            {% if  data.bandLevel.bandLevelName.length > 1%}
+              <option value='{"bandLevelID":{{data.bandLevel.bandLevelID}},"bandLevelName":"{{data.bandLevel.bandLevelName}}"}'>{{data.bandLevel.bandLevelName}}</option>
             {% else  %}
               <option value="" >Select one...</option>
             {% endif %}
             {% for bl in formData.bandList %}
-              <option value="{{bl.band_level_id}}">{{bl.band_name}}</option>
+              <option value='{"bandLevelID":{{bl.band_level_id}},"bandLevelName":"{{bl.band_name}}"}'>{{bl.band_name}}</option>
             {% endfor %}
           </select>
         </div>
@@ -121,6 +142,8 @@
     const specLength = document.getElementById('specLength');
 
     jobSpec.addEventListener('input', updateValue);
+    specLength.innerHTML = "Characters remaining: " + (
+    1000 - jobSpec.value.length);
 
     function updateValue() {
       specLength.innerHTML = "Characters remaining: " + (
