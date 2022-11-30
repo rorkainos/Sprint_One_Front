@@ -21,13 +21,13 @@ router.get('/jobroles', async (req, res) => {
 
 router.get('/editjobroles/:id' , async (req, res) => {
     let id = req.params.id
-    console.log(id);    
-    let response = await JobService.getJobRoles();
+    let response = await JobService.getEditRole(id);
     let y = await JobService.getJobRoleInfo();
-    console.log(response[id-1])
-    let x = (response[id-1])
-    console.log(y)
-    res.render('editjobroles', {data:x, formData: y})
+    let x = await JobService.getBandAndFamily(y,response.band_level_id,response.job_family_id);
+    console.log(x);
+    response = Object.assign(response,x);
+    console.log(response);
+    res.render('editjobroles', {data:response, formData: y})
 });
 
 

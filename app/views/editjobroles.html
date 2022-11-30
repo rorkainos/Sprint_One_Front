@@ -166,21 +166,19 @@
         <input class="govuk-input" id="name" name="name" type="text" value="{{data.name}}">
       </div>
       <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec">
+  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec" >
       Job Spec
     </label>
   </h1>
-  <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint"></textarea>
+  <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint" >{{data.job_spec}}</textarea>
 </div>
-
-
       <div class="govuk-form-group">
         <h1 class="govuk-label-wrapper">
           <label class="govuk-label" for="jobSpecURL">
       Job Spec URL
     </label>
         </h1>
-        <input class="govuk-input" id="jobSpecURL" name="jobSpecURL" type="text" >
+        <input class="govuk-input" id="jobSpecURL" name="jobSpecURL" type="text" value="{{data.job_spec_url}}">
       </div>
 
       <div class="govuk-grid-row">
@@ -189,11 +187,16 @@
   <label class="govuk-label" for="sort">
     Job Family
   </label>
-  <select class="govuk-select" id="jobFamily" name="jobFamily" >
-    <option value="">Select one</option>
-    <option value="Data" >Data</option>
-    <option value="Testing">Testing</option>
-    <option value="AI">AI</option>
+  
+  <select class="govuk-select" id="jobFamily" name="jobFamily" value="{{data.job_family_id}}" >
+    {% if data.job_family_id != null %}
+      <option value={{data.job_family_id}}>{{data.family_name}}</option>
+    {% else  %}
+      <option value="" >Select one...</option>
+    {% endif %}
+    {% for bl in formData.jobFamilyList %}
+      <option value="{{data.job_family_id}}">{{bl.family_name}}</option>
+    {% endfor %}
   </select>
 </div>
        
@@ -203,9 +206,9 @@
   <label class="govuk-label" for="bandLevel">
     Band Level 
   </label>
-  <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandName}}" >
-    {% if  data.bandName.length > 1%}
-      <option value={{data.bandLevel}}>{{data.bandName}}</option>
+  <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.band_level_id}}" >
+    {% if  data.band_level_id != null %}
+      <option value={{data.band_level_id}}>{{data.band_name}}</option>
     {% else  %}
       <option value="" >Select one...</option>
     {% endif %}
