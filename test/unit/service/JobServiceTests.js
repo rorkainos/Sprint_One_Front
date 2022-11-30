@@ -58,7 +58,7 @@ describe('JobService', function () {
         
         // mocking a good response from the endpoint
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.GET_JOB_SPEC + '1').reply(() => {return [200, data]});
+        mock.onGet(JobService.GET_JOB_SPEC + '1').reply(200, data);
        
         var response = await JobService.getJobSpecification('1');
         expect(response.job_spec).to.equal('spec1');
@@ -66,11 +66,13 @@ describe('JobService', function () {
 
       it('should return error Could not get Job Specification', async () => {        
         // mocking an error 500 response from backend
+
+        let id = '1';
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.GET_JOB_SPEC + '1').reply(500);
+        mock.onGet(JobService.GET_JOB_SPEC + id).reply(500);
         
         try{
-          await JobService.getJobSpecification('1');
+          await JobService.getJobSpecification(id);
         }catch(error){
           expect(error.message).to.equal('Could not get Job Specification')
         }
