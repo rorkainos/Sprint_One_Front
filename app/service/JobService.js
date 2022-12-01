@@ -1,8 +1,7 @@
 const axios = require('axios');
 axios.defaults.baseURL = process.env.API_URL;
 
-module.exports.GET_JOB_ROLES = '/hr/job-roles';
-module.exports.POST_JOB_ROLE = '/hr/job-roles';
+module.exports.JOB_ROLE_ENDPOINT = '/hr/job-roles';
 module.exports.GET_JOB_ROLE_INFO = '/hr/job-role-info';
 module.exports.axios = axios;
 
@@ -10,7 +9,7 @@ module.exports.axios = axios;
 // get all of the job roles available
 module.exports.getJobRoles = async function () {
     try {
-        const response = await axios.get(this.GET_JOB_ROLES);
+        const response = await axios.get(this.JOB_ROLE_ENDPOINT);
         return response.data;
     } catch {
         throw new Error('Could not get Job Roles.')
@@ -21,7 +20,7 @@ module.exports.getJobRoles = async function () {
 module.exports.insertJobRole = async function (data) {
     try {
         // post request to add new job role
-        const response = await axios.post(this.POST_JOB_ROLE, data);
+        const response = await axios.post(this.JOB_ROLE_ENDPOINT, data);
         return response;
     } catch {
         // throw exception if call fails
@@ -32,7 +31,7 @@ module.exports.insertJobRole = async function (data) {
 module.exports.getJobRoleInfo = async function () {
     try {
         // get request to get job family and band level data
-        const response = await axios.get(this.GET_JOB_ROLE_INFO);
+        const response = await axios.get(this.JOB_ROLE_ENDPOINT);
         return response.data;
     } catch {
         // throw exception if call fails
