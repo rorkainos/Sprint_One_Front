@@ -19,7 +19,7 @@ describe('JobRoleValidator', function () {
 
         it('should return error when job name is longer than 100 characters', () => {
             let jobRole = {
-                jobRoleName: "awawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawaw",
+                jobRoleName: "a".repeat(120),
                 jobSpec: "New job in Kainos",
                 jobSpecURL: "https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
                 jobFamily: 1,
@@ -44,7 +44,7 @@ describe('JobRoleValidator', function () {
         it('should return error when job spec is longer than 1000 characters', () => {
             let jobRole = {
                 jobRoleName: "Software Engineer",
-                jobSpec: "awawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawwawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawaawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawwawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawawa",
+                jobSpec: "a".repeat(1200),
                 jobSpecURL: "https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
                 jobFamily: 1,
                 bandLevel: 2
