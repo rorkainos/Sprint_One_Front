@@ -34,12 +34,13 @@ module.exports.validateJobRole = function (jobRole) {
     }
 
     // job family validation
-    if (jobRole.jobFamily.trim().length === 0) {
+    if (jobRole.jobFamily.length === 0) {
+        // console.log(jobRole)
         return {jobFamilyError: "Job family must be selected."};
     }
 
     // band level validation
-    if (jobRole.bandLevel.trim().length === 0) {
+    if (jobRole.bandLevel.length === 0) {
         return {bandLevelError: "Band level must be selected."};
     }
 
