@@ -52,9 +52,9 @@ describe('JobService', function () {
 
   describe('insertJobRole', function () {
 
-    var mock = new MockAdapter(axios);
-
     it('should receive 201 when job role inserted', async () => {
+  
+      var mock = new MockAdapter(axios);
 
       let body = {
         jobRoleName: "Software Engineer",
@@ -64,18 +64,14 @@ describe('JobService', function () {
         bandLevel: 1
       }
 
-      mock.onPost(JobService.POST_JOB_ROLE, body).reply(201);
-      // console.log(mock.handlers.post)
-      var results = await JobService.insertJobRole(body)
-      try {
-        await JobService.insertJobRole(body);
-      } catch (error) {
-        
-      }
-      expect(results).to.equal(201)
+      mock.onPost(JobService.POST_JOB_ROLE, body).reply(201,1);
+      var results = await JobService.insertJobRole(body);
+      expect(results.status).to.equal(201)
     })
 
     it('should return error could not create new Job Roles.', async () => {
+
+      var mock = new MockAdapter(axios);
 
       let body = {
         jobRoleName: "Software Engineer",
