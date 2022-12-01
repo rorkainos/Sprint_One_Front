@@ -65,7 +65,6 @@ router.post('/addjobrole', async (req, res) => {
             // redirect to job roles page
             res.redirect('/jobroles')
         } catch (e) {
-            console.log(e)
             // render form again with insertion error displayed
             let error = { "insertError": "Could not insert new job role, please try again." }
             res.render('addjobrole', { error: error, data: req.body, formData: insertData })
