@@ -23,9 +23,8 @@ module.exports.insertJobRole = async function (data) {
         // post request to add new job role
         const response = await axios.post(this.POST_JOB_ROLE, data);
         return response;
-    } catch (e){
+    } catch {
         // throw exception if call fails
-        console.log(e)
         throw new Error('Could not create new Job Roles.')
     }
 }
