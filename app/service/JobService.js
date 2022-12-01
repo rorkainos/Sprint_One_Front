@@ -3,8 +3,8 @@ axios.defaults.baseURL = process.env.API_URL;
 
 module.exports.JOB_ROLE_ENDPOINT = '/hr/job-roles';
 module.exports.GET_JOB_ROLE_INFO = '/hr/job-role-info';
+module.exports.GET_JOB_SPEC =  '/hr/job-specification/';
 module.exports.axios = axios;
-
 
 // get all of the job roles available
 module.exports.getJobRoles = async function () {
@@ -33,8 +33,19 @@ module.exports.getJobRoleInfo = async function () {
         // get request to get job family and band level data
         const response = await axios.get(this.JOB_ROLE_ENDPOINT);
         return response.data;
+
     } catch {
         // throw exception if call fails
         throw new Error('Could not get Job Role info.')
+    }
+}
+
+module.exports.getJobSpecification = async function (jobID) {
+    try{
+        const response = await axios.get(this.GET_JOB_SPEC + jobID);
+        return response.data;
+    }catch{ 
+        throw new Error('Could not get Job Specification');
+
     }
 }
