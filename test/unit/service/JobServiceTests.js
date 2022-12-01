@@ -51,8 +51,44 @@ describe('JobService', function () {
         var mock = new MockAdapter(axios);
         mock.onGet(JobService.GET_JOB_ROLES).reply(500);
        
-        var error = await JobService.getJobRoles()
-        expect(error.message).to.equal('Could not get Job Roles')
+        try{
+          await JobService.getJobRoles()
+        }catch(error){
+          expect(error.message).to.equal('Could not get Job Roles')
+        }
+      })
+    })
+
+    describe('getJobSpecification', function () {
+    
+      it('should return the job specification', async () => {
+
+        
+        let id = '1';
+        let dataValue = "spec1";
+
+        let data = {job_spec: dataValue};
+        
+        // mocking a good response from the endpoint
+        var mock = new MockAdapter(axios);
+        mock.onGet(JobService.GET_JOB_SPEC + id).reply(200, data);
+       
+        var response = await JobService.getJobSpecification(id);
+        expect(response.job_spec).to.equal(dataValue);
+      })
+
+      it('should return error Could not get Job Specification', async () => {        
+        // mocking an error 500 response from backend
+
+        let id = '1';
+        var mock = new MockAdapter(axios);
+        mock.onGet(JobService.GET_JOB_SPEC + id).reply(500);
+        
+        try{
+          await JobService.getJobSpecification(id);
+        }catch(error){
+          expect(error.message).to.equal('Could not get Job Specification')
+        }
       })
     })
   })

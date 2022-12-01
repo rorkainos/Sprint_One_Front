@@ -17,4 +17,17 @@ router.get('/jobroles', async (req, res) => {
     res.render('jobroles', { jobroles: data } ) 
 });
 
+// render the jobSpec Page with id and name passed in the request
+router.get('/jobspec/:id', async (req, res) => {
+    let id = req.params.id;
+
+    try {
+        jobSpecification = await JobService.getJobSpecification(id);    
+    }catch (err) {
+        res.locals.errormessage = "An error occured when retrieving the job specification";
+    }
+
+    res.render('jobSpec', { jobSpecification: jobSpecification } )
+});
+
 module.exports = router
