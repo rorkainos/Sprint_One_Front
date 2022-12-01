@@ -24,17 +24,17 @@
         <thead>
           <tr>
             <th id="Name">Name</th>
-            <th id=">Band Level">Band Level</th>
+            <th id="Band Level">Band Level</th>
             <th id="Capability">Capability</th>
           </tr>
         </thead>
 
         <tbody>
           {% for row in jobroles %}
-          <tr id="{{row.id}}"> 
-            <td id="{{row.name}}"><a id="{{row.name}} nameHref" href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
-            <td id="{{row.bandName}}">{{row.bandName}}</td>
-            <td id="{{row.capability}}">{{row.capability}}</td>
+          <tr> 
+            <td id="{{row.name}}-{{row.id}}"><a id="{{row.name}}-{{row.id}}-href" href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
+            <td id="{{row.bandName}}-{{row.id}}">{{row.bandName}}</td>
+            <td id="{{row.capability}}-{{row.id}}">{{row.capability}}</td>
           </tr>
             {% endfor %}
         </tbody>
