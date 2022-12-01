@@ -31,7 +31,7 @@ module.exports.insertJobRole = async function (data) {
 module.exports.getJobRoleInfo = async function () {
     try {
         // get request to get job family and band level data
-        const response = await axios.get(this.JOB_ROLE_ENDPOINT);
+        const response = await axios.get(this.GET_JOB_ROLE_INFO);
         return response.data;
 
     } catch {

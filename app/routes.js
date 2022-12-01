@@ -23,9 +23,8 @@ router.get('/jobroles', async (req, res) => {
 router.get('/addjobrole', async (req, res) => {
 
     // get data for populating job family and band level dropdowns
-    data = await JobService.getJobRoleInfo();
+    let data = await JobService.getJobRoleInfo();
     // render form page
-
     res.render('addjobrole', { formData: data });
 
 });
@@ -39,7 +38,7 @@ router.post('/addjobrole', async (req, res) => {
     if (Object.keys(error).length !== 0) {
         // get data for populating job family and band level dropdowns
         let data = await JobService.getJobRoleInfo();
-
+ 
         // parse job family and band level data passed from form into JSON
         if (req.body.jobFamily != '') {
             req.body.jobFamily = JSON.parse(req.body.jobFamily)
@@ -63,7 +62,8 @@ router.post('/addjobrole', async (req, res) => {
             // insert new job
             await js.insertJobRole(req.body)
             // redirect to job roles page
-            res.redirect('/jobroles')
+            let data = await JobService.getJobRoles()
+            res.render('jobroles', {inserted:true, jobroles: data})
         } catch (e) {
             // render form again with insertion error displayed
             let error = { "insertError": "Could not insert new job role, please try again." }
