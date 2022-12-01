@@ -24,6 +24,8 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Band Level</th>
+            <th>Capability</th>
           </tr>
         </thead>
 
@@ -31,6 +33,8 @@
           {% for row in jobroles %}
           <tr> 
             <td><a href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
+            <td>{{row.bandName}}</td>
+            <td>{{row.capability}}</td>
           </tr>
             {% endfor %}
         </tbody>
