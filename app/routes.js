@@ -52,17 +52,25 @@ router.post('/addjobrole', async (req, res) => {
         res.render('addjobrole', { error: error, data: req.body, formData: data })
     } else {
 
+        // retain form data in case insert fails
+        let insertData = req.body;
+
         // remove names from job family and band level fields in response data
         req.body.jobFamily = JSON.parse(req.body.jobFamily).jobFamilyID;
         req.body.bandLevel = JSON.parse(req.body.bandLevel).bandLevelID;
-        
-        // insert new job
-        js.insertJobRole(req.body)
 
-        // redirect to job roles page
-        res.redirect('/jobroles')
+        try {
+            // insert new job
+            await js.insertJobRole(req.body)
+            // redirect to job roles page
+            res.redirect('/jobroles')
+        } catch (e) {
+            console.log(e)
+            // render form again with insertion error displayed
+            let error = { "insertError": "Could not insert new job role, please try again." }
+            res.render('addjobrole', { error: error, data: req.body, formData: insertData })
+        }
     }
-
 });
 
 module.exports = router

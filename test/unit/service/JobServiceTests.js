@@ -63,7 +63,6 @@ describe('JobService', function () {
         jobFamily: 1,
         bandLevel: 1
       }
-
       mock.onPost(JobService.POST_JOB_ROLE, body).reply(201,1);
       var results = await JobService.insertJobRole(body);
       expect(results.status).to.equal(201)

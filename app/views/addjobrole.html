@@ -9,6 +9,11 @@
   {# PAGE HEADING #}
   <h2 class="govuk-heading-l">Add New Job Role</h2>
 
+  {# INSERT EXCEPTION ERROR #}
+  {% if error.insertError %}
+    <div class="govuk-error-message">{{ error.insertError }}</div>
+  {% endif %}
+
   {# NAME ERROR HEADING #}
   {% if error.nameError %}
     <div class="govuk-error-message">{{ error.nameError }}</div>
