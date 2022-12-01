@@ -98,7 +98,7 @@ describe('JobService', function () {
         try{
           await JobService.getJobRoles()
         }catch(error){
-          expect(error.message).to.equal('Could not get Job Roles')
+          expect(error.message).to.equal('Could not get Job Roles.')
         }
       })
     })
