@@ -53,24 +53,18 @@
 {% extends "layout_unbranded.html" %}
 
 {% block pageTitle %} 
-  Add New Job Role
+  Edit Job Role
 {% endblock %}
 
 {% block content %}
 
   <h2 class="govuk-heading-l">Edit Job Role</h2>
 
-
-
-    <form name="jobRoleForm" action="/editjobroles" onsubmit=""  method="post">
-      <div class="govuk-form-group">
-        <label class="govuk-label" for="id">
-          Role
-        </label>
-        <select class="govuk-select" id="id" name="id" value="{{data.id}}" >
-            <option value={{data.id}}>{{data.id}}</option>
-        </select>
-      </div>
+    <form name="jobRoleForm" action="/editjobroles/{{data.job_role_id}}" onsubmit=""  method="post">
+      {# NAME ERROR HEADING #}
+      {% if error.nameError %}
+        <div class="govuk-error-message">{{ error.nameError }}</div>
+      {% endif %}
       <div class="govuk-form-group">
         <h1 class="govuk-label-wrapper">
           <label class="govuk-label" for="name">
@@ -79,22 +73,33 @@
         </h1>
         <input class="govuk-input" id="name" name="name" type="text" value="{{data.name}}">
       </div>
+      {# SPEC ERROR HEADING #}
+      {% if error.specError %}
+      <div class="govuk-error-message">{{ error.specError }}</div>
+      {% endif %}
       <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec" >
+  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="job_spec" >
       Job Spec
     </label>
   </h1>
-  <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint" >{{data.job_spec}}</textarea>
+  <textarea class="govuk-textarea" id="job_spec" name="job_spec" rows="5" aria-describedby="more-detail-hint" >{{data.job_spec}}</textarea>
 </div>
+{# SPEC URL ERROR HEADING #}
+{% if error.specURLError %}
+  <div class="govuk-error-message">{{ error.specURLError }}</div>
+{% endif %}
       <div class="govuk-form-group">
         <h1 class="govuk-label-wrapper">
-          <label class="govuk-label" for="jobSpecURL">
+          <label class="govuk-label" for="job_spec_url">
       Job Spec URL
     </label>
         </h1>
-        <input class="govuk-input" id="jobSpecURL" name="jobSpecURL" type="text" value="{{data.job_spec_url}}">
+        <input class="govuk-input" id="job_spec_url" name="job_spec_url" type="text" value="{{data.job_spec_url}}">
       </div>
-
+      {# JOB FAMILY ERROR HEADING #}
+      {% if error.jobFamilyError %}
+        <div class="govuk-error-message">{{ error.jobFamilyError }}</div>
+      {% endif %}
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
 <div class="govuk-form-group">
@@ -102,25 +107,29 @@
     Job Family
   </label>
   
-  <select class="govuk-select" id="jobFamily" name="jobFamily" value="{{data.job_family_id}}" >
+  <select class="govuk-select" id="job_family_id" name="job_family_id" value="{{data.job_family_id}}" >
     {% if data.job_family_id != null %}
       <option value={{data.job_family_id}}>{{data.family_name}}</option>
-    {% else  %}
+    {% else %}
       <option value="" >Select one...</option>
     {% endif %}
-    {% for bl in formData.jobFamilyList %}
+    {% for bl in formData.job_family_idList %}
       <option value="{{data.job_family_id}}">{{bl.family_name}}</option>
     {% endfor %}
   </select>
 </div>
        
 </div>
+{# BAND LEVEL ERROR HEADING #}
+{% if error.bandLevelError %}
+  <div class="govuk-error-message">{{ error.bandLevelError }}</div>
+{% endif %}
         <div class="govuk-grid-column-one-half">
 <div class="govuk-form-group">
-  <label class="govuk-label" for="bandLevel">
+  <label class="govuk-label" for="band_level_id">
     Band Level 
   </label>
-  <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.band_level_id}}" >
+  <select class="govuk-select" id="band_level_id" name="band_level_id" value="{{data.band_level_id}}" >
     {% if  data.band_level_id != null %}
       <option value={{data.band_level_id}}>{{data.band_name}}</option>
     {% else  %}

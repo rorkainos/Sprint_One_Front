@@ -20,9 +20,10 @@ router.get('/jobroles', async (req, res) => {
 });
 
 router.get('/editjobroles/:id' , async (req, res) => {
-    let id = req.params.id
-    let jobRoleID = {id : id}
-    let response = await JobService.getEditRole(id);
+    let job_role_id = req.params.id
+    let jobRoleID = {job_role_id : job_role_id}
+    let response = await JobService.getEditRole(job_role_id);
+    //console.log(response);
     let y = await JobService.getJobRoleInfo();
     let x = await JobService.getBandAndFamily(y,response.band_level_id,response.job_family_id);
     response = Object.assign(response,x,jobRoleID);
@@ -30,19 +31,26 @@ router.get('/editjobroles/:id' , async (req, res) => {
 });
 
 
-router.post('/editjobroles', async (req, res) => {
-
-    //let id = req.params.id
+router.post('/editjobroles/:id', async (req, res) => {
+    let id = req.params.id
+    console.log(id);
     //console.log(id);
-    console.log("hi!!")
-    console.log(req.body)
-    let error = new JobRoleValidator.validateJobRole(req.body);
+    //console.log("hi!!")
     //console.log(req.body)
-    JobService.postEditRole(req.body);
-    if (error) {
-        res.render('editjobroles' , { error: error, data: req.body})
+    //console.log(req.body)
+    let error = new JobRoleValidator.validateJobRole(req.body);    
+    if (Object.keys(error).length !== 0) {
+        console.log(error);
+        //let id = req.body.id;
+        //res.redirect('/editjobroles/:id', { error: error, data: req.body}, 302);
+        let y = await JobService.getJobRoleInfo();
+        let x = await JobService.getBandAndFamily(y,req.body.band_level_id,req.body.job_family_id);
+        req.body = Object.assign(req.body,x);
+        res.render('editjobroles', {error: error, data:req.body, formData: y})
+    }else{
+    JobService.putEditRole(req.body, id);
+    res.redirect('/jobroles')
     }
-    //res.redirect(302, 'editjobroles', )
 });
 
 // render the jobSpec Page with id and name passed in the request
