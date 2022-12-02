@@ -1,10 +1,13 @@
 const express = require('express')
 const JobRoleValidator = require('./validator/JobRoleValidator')
+const UserValidator = require('./validator/UserValidator')
+const UserService = require('./service/UserService')
 const js = require('./service/JobService')
 const router = express.Router()
 
 // Add your routes here - above the module.exports line
 const JobService = require('./service/JobService');
+const e = require('express')
 
 // render the jobroles.html page and pass in a list of job roles
 router.get('/jobroles', async (req, res) => {
@@ -38,7 +41,7 @@ router.post('/addjobrole', async (req, res) => {
     if (Object.keys(error).length !== 0) {
         // get data for populating job family and band level dropdowns
         let data = await JobService.getJobRoleInfo();
- 
+
         // parse job family and band level data passed from form into JSON
         if (req.body.jobFamily != '') {
             req.body.jobFamily = JSON.parse(req.body.jobFamily)
@@ -63,7 +66,7 @@ router.post('/addjobrole', async (req, res) => {
             await js.insertJobRole(req.body)
             // redirect to job roles page
             let data = await JobService.getJobRoles()
-            res.render('jobroles', {inserted:true, jobroles: data})
+            res.render('jobroles', { inserted: true, jobroles: data })
         } catch (e) {
             // render form again with insertion error displayed
             let error = { "insertError": "Could not insert new job role, please try again." }
@@ -77,12 +80,54 @@ router.get('/jobspec/:id', async (req, res) => {
     let id = req.params.id;
 
     try {
-        jobSpecification = await JobService.getJobSpecification(id);    
-    }catch (err) {
+        jobSpecification = await JobService.getJobSpecification(id);
+    } catch (err) {
         res.locals.errormessage = "An error occured when retrieving the job specification";
     }
 
-    res.render('jobSpec', { jobSpecification: jobSpecification } )
+    res.render('jobSpec', { jobSpecification: jobSpecification })
+});
+
+// render user registration page
+router.get('/registration', async (req, res) => {
+
+    res.render('registration')
+});
+
+// render user registration page
+router.post('/registration', async (req, res) => {
+
+    // VALIDATE USER
+    let error = await UserValidator.validateUser(req.body)
+
+    // IF VALID INSERT TO DB
+    if (Object.keys(error).length == 0) {
+        try {
+            // only send role ID
+            req.body.role = req.body.role.roleID
+            // register new user
+            await UserService.register(req.body)
+            // redirect to job roles page
+            let data = await JobService.getJobRoles()
+            res.render('jobroles', { registered: true, jobroles: data })
+        } catch (e){
+            console.log(e)
+            // render form again with insertion error displayed
+            let error = { "registrationError": "Could not register new user, please try again." }
+            res.render('registration', { error: error, formData: req.body })
+        }
+
+        // IF NOT RENDER FORM AGAIN
+    } else {
+
+        if (req.body.role != '') {
+            req.body.role = JSON.parse(req.body.role)
+        }
+
+        // render form again with errors and populated fields
+        res.render('registration', { error: error, formData: req.body })
+    }
+
 });
 
 module.exports = router

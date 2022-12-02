@@ -4,7 +4,6 @@ axios.defaults.baseURL = process.env.API_URL;
 module.exports.JOB_ROLE_ENDPOINT = '/hr/job-roles';
 module.exports.GET_JOB_ROLE_INFO = '/hr/job-role-info';
 module.exports.GET_JOB_SPEC =  '/hr/job-specification/';
-module.exports.axios = axios;
 
 // get all of the job roles available
 module.exports.getJobRoles = async function () {
