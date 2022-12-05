@@ -6,15 +6,14 @@ const UserService = require('../../../app/service/UserService');
 
 describe('UserService', function () {
 
-
     describe('registerUser', function () {
 
-        it('should return error Could not get Job Roles', async () => {
+        it('should return error Could not register user', async () => {
 
-            let user = {
-                "Email": "james@email.com",
-                "Password": "password",
-                "Role": 1
+            var user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": JSON.stringify({ "roleID": 1, "roleName": "Engineer" })
             }
 
             // mocking an error 500 response from backend
@@ -27,21 +26,22 @@ describe('UserService', function () {
             }
 
         })
-    })
 
-    it('should receive 201 when job role inserted', async () => {
+        it('should receive 201 when user inserted', async () => {
 
-        var mock = new MockAdapter(axios);
+            var mock = new MockAdapter(axios);
 
-        let user = {
-            "Email": "james@email.com",
-            "Password": "password",
-            "Role": 1
-        }
+            var user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": JSON.stringify({ "roleID": 1, "roleName": "Engineer" })
+            }
 
-        mock.onPost(UserService.REGISTRATION, user).reply(201);
-        var results = await UserService.register(user);
-        expect(results.status).to.equal(201)
+            mock.onPost(UserService.REGISTRATION, user).reply(201);
+            var results = await UserService.register(user);
+            expect(results.status).to.equal(201)
+        })
+
     })
 
 })

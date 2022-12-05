@@ -7,14 +7,26 @@ describe('UserValidator', function () {
     describe('validateUser', function () {
 
         it('should pass when user is valid', () => {
-            let user = {
+            var user = {
                 "email": "james@gmail.com",
                 "password": "Password12!",
-                "role": 1
+                "role": JSON.stringify({"roleID" : 1, "roleName" :"Engineer"})
             }
 
             expect(UserValidator.validateUser(user).emailError).to.equal(undefined)
+
+            var user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": JSON.stringify({"roleID" : 1, "roleName" :"Engineer"})
+            }
             expect(UserValidator.validateUser(user).passwordError).to.equal(undefined)
+
+            var user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": JSON.stringify({"roleID" : 1, "roleName" :"Engineer"})
+            }
             expect(UserValidator.validateUser(user).roleError).to.equal(undefined)
 
         })

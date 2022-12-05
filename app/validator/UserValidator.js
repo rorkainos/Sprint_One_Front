@@ -3,12 +3,7 @@ module.exports.validateUser = function (user) {
 
     let error = {};
 
-    // email validation
-    if (user.email.trim().length === 0) {
-        return { emailError: "Email cannot be empty." };
-    }
-
-    if (!user.email.trim().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+    if (!user.email.trim().match(   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/  )) {
         return { emailError: "Not a valid email address." };
     }
 
@@ -18,7 +13,7 @@ module.exports.validateUser = function (user) {
     }
 
     if (user.role != '') {
-        req.body.role = req.body.role.roleID
+        user.role = JSON.parse(user.role).roleID
     }
 
     // role validation

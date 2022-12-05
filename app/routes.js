@@ -97,36 +97,33 @@ router.get('/registration', async (req, res) => {
 
 // render user registration page
 router.post('/registration', async (req, res) => {
-    console.log(req.body)
+    // retain user without hashed password for registration error 
+    let user = {
+        ...req.body
+    }
+    user.role = JSON.parse(user.role)
+
     // VALIDATE USER
     let error = await UserValidator.validateUser(req.body)
-    
+
     // IF VALID INSERT TO DB
     if (Object.keys(error).length == 0) {
+
         try {
-            // only send role ID
-            req.body.role = req.body.role.roleID
             // register new user
             await UserService.register(req.body)
             // redirect to job roles page
             res.render('jobroles', { registered: true, jobroles: await JobService.getJobRoles() })
-        } catch (e) {
+        } catch {
             // render form again with insertion error displayed
             let error = { "registrationError": "Could not register new user, please try again." }
-            res.render('registration', { error: error, formData: req.body })
+            res.render('registration', { error: error, formData: user })
         }
-
         // IF NOT RENDER FORM AGAIN
     } else {
-
-        if (req.body.role != '') {
-            req.body.role = JSON.parse(req.body.role)
-        }
-
         // render form again with errors and populated fields
-        res.render('registration', { error: error, formData: req.body })
+        res.render('registration', { error: error, formData: user })
     }
-
 });
 
 module.exports = router
