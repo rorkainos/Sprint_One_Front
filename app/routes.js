@@ -6,7 +6,6 @@ const router = express.Router()
 
 // Add your routes here - above the module.exports line
 const JobService = require('./service/JobService');
-const e = require('express')
 
 // render the jobroles.html page and pass in a list of job roles
 router.get('/jobroles', async (req, res) => {
