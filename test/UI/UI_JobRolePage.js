@@ -22,7 +22,7 @@ describe('JobRolesCheck', function() {
     await driver.close();
     await driver.quit();
   })
-  it('should return an error when Job Roles page is not displayed or there is no Job Roles table', async function() {
+  it('Asserting that heading List of Job Roles exists', async function() {
 
     // Go to main Job Roles page
     await driver.get("http://localhost:3000/jobroles");
