@@ -2,7 +2,6 @@ const express = require('express')
 const JobRoleValidator = require('./validator/JobRoleValidator')
 const UserValidator = require('./validator/UserValidator')
 const UserService = require('./service/UserService')
-const js = require('./service/JobService')
 const router = express.Router()
 
 // Add your routes here - above the module.exports line
@@ -64,7 +63,7 @@ router.post('/addjobrole', async (req, res) => {
 
         try {
             // insert new job
-            await js.insertJobRole(req.body)
+            await JobService.insertJobRole(req.body)
             // redirect to job roles page
             let data = await JobService.getJobRoles()
             res.render('jobroles', { inserted: true, jobroles: data })
