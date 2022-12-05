@@ -16,8 +16,8 @@
 <h2>List of Job Roles</h2>
 
 {% if inserted %} 
-  <p class="alert alert-success">New job role inserted!</p>
-{% endif %}
+  <p class="alert alert-success" id="jobRoleInserted">New job role inserted!</p>
+{% endif %} 
 
 {% if errormessage %} 
   <div class="alert alert-danger">{{ errormessage }}</div>

@@ -11,12 +11,12 @@
 
   {# INSERT EXCEPTION ERROR #}
   {% if error.insertError %}
-    <div class="govuk-error-message">{{ error.insertError }}</div>
+    <div class="govuk-error-message" id="insertError">{{ error.insertError }}</div>
   {% endif %}
 
   {# NAME ERROR HEADING #}
   {% if error.nameError %}
-    <div class="govuk-error-message">{{ error.nameError }}</div>
+    <div class="govuk-error-message" id="nameError">{{ error.nameError }}</div>
   {% endif %}
 
   {# START FORM #}
@@ -34,7 +34,7 @@
 
     {# SPEC ERROR HEADING #}
     {% if error.specError %}
-      <div class="govuk-error-message">{{ error.specError }}</div>
+      <div class="govuk-error-message" id="specError">{{ error.specError }}</div>
     {% endif %}
     <div class="govuk-form-group">
 
@@ -62,7 +62,7 @@
 
     {# SPEC URL ERROR HEADING #}
     {% if error.specURLError %}
-      <div class="govuk-error-message">{{ error.specURLError }}</div>
+      <div class="govuk-error-message" id="specURLError">{{ error.specURLError }}</div>
     {% endif %}
 
     {# JOB SPEC URL FIELD #}
@@ -77,7 +77,7 @@
 
     {# JOB FAMILY ERROR HEADING #}
     {% if error.jobFamilyError %}
-      <div class="govuk-error-message">{{ error.jobFamilyError }}</div>
+      <div class="govuk-error-message" id="jobFamilyError">{{ error.jobFamilyError }}</div>
     {% endif %}
 
     {# JOB FAMILY AND BAND LEVEL ROW #}
@@ -109,7 +109,7 @@
 
         {# BAND LEVEL ERROR HEADING #}
         {% if error.bandLevelError %}
-          <div class="govuk-error-message">{{ error.bandLevelError }}</div>
+          <div class="govuk-error-message" id="bandLevelError">{{ error.bandLevelError }}</div>
         {% endif %}
 
         {# BAND LEVEL FIELD #}

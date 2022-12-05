@@ -7,7 +7,7 @@ module.exports.REGISTRATION = '/hr/registration';
 // get all of the job roles available
 module.exports.register = async function (user) {
 
-    // HASH PASSWORD HERE
+    // HASH PASSWORD 
     user.password = await bcrypt.hash(user.password, await bcrypt.genSalt())
 
     try {
