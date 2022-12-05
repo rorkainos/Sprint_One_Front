@@ -30,12 +30,13 @@ describe('JobRolesCheck', function() {
     await driver.sleep(2000);
 
     // Confirm that it is main page by asserting heading
-    assert(await driver.findElement(By.xpath("/html[1]/body[1]/h2[1]")).getText() == "List of Job Roles");
+    assert.equal(await driver.findElement(By.xpath("/html[1]/body[1]/h2[1]")).getText(), "List of Job Roles");
     console.log("LOG asserting Header of the page: OK");
 
     // Confirm that main page table exist by asserting heading
-    assert(await driver.findElement(By.xpath("/html[1]/body[1]/table[1]/thead[1]/tr[1]/th[1]")).getText() == "Name");
+    assert.equal(await driver.findElement(By.id("Name")).getText(), "Name");
     console.log("LOG asserting Name column header: OK");
 
+    await driver.close();
   })
 })
