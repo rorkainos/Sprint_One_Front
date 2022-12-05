@@ -35,6 +35,7 @@ router.get('/addjobrole', async (req, res) => {
 // render the addjobroles.html page 
 router.post('/addjobrole', async (req, res) => {
 
+
     // validate job role
     let error = new JobRoleValidator.validateJobRole(req.body);
 
