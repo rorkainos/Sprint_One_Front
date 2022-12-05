@@ -19,9 +19,10 @@ describe('JobRolesCheck', function() {
     vars = {}
   })
   afterEach(async function() {
+    await driver.close();
     await driver.quit();
   })
-  it('JobRolesCheck', async function() {
+  it('should return an error when Job Roles page is not displayed or there is no Job Roles table', async function() {
 
     // Go to main Job Roles page
     await driver.get("http://localhost:3000/jobroles");
@@ -36,7 +37,5 @@ describe('JobRolesCheck', function() {
     // Confirm that main page table exist by asserting heading
     assert.equal(await driver.findElement(By.id("Name")).getText(), "Name");
     console.log("LOG asserting Name column header: OK");
-
-    await driver.close();
   })
 })
