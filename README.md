@@ -1,5 +1,51 @@
-# Sprint_One_Front
-Sprint starting 22.11.2022
-trello board -> https://trello.com/b/mqEma0t0/team-b-agile-sprint-board
-frontend repo [this]
-backend repo -> [https://github.com/KacperBober/java-backend-api]
+# Job Roles Frontend Project
+
+## Requirements
+
+For development, you will only need Node.js installed on your environement.
+
+### Node
+
+[Node](http://nodejs.org/) is really easy to install & now include [NPM](https://npmjs.org/).
+You should be able to run the following command after the installation procedure
+below.
+
+    $ node --version
+    ie v19.1.0
+
+    $ npm --version
+    ie 8.19.3
+
+
+#### Node installation on OS X
+
+You will need to use a Terminal. On OS X, you can find the default terminal in
+`/Applications/Utilities/Terminal.app`.
+
+Please install [Homebrew](http://brew.sh/) if it's not already done with the following command.
+
+    $ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+
+If everything when fine, you should run
+
+    brew install node
+
+#### Node installation on Linux
+
+    sudo apt-get install python-software-properties
+    sudo add-apt-repository ppa:chris-lea/node.js
+    sudo apt-get update
+    sudo apt-get install nodejs 
+
+## Downloading dependancies
+npm install --legacy-peer-deps
+
+## Running appliacation
+npm start
+
+## Simple build
+npm run build
+
+## Running test
+npm run test
+
