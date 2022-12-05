@@ -97,10 +97,10 @@ router.get('/registration', async (req, res) => {
 
 // render user registration page
 router.post('/registration', async (req, res) => {
-
+    console.log(req.body)
     // VALIDATE USER
     let error = await UserValidator.validateUser(req.body)
-
+    
     // IF VALID INSERT TO DB
     if (Object.keys(error).length == 0) {
         try {
@@ -109,10 +109,8 @@ router.post('/registration', async (req, res) => {
             // register new user
             await UserService.register(req.body)
             // redirect to job roles page
-            let data = await JobService.getJobRoles()
-            res.render('jobroles', { registered: true, jobroles: data })
-        } catch (e){
-            console.log(e)
+            res.render('jobroles', { registered: true, jobroles: await JobService.getJobRoles() })
+        } catch (e) {
             // render form again with insertion error displayed
             let error = { "registrationError": "Could not register new user, please try again." }
             res.render('registration', { error: error, formData: req.body })

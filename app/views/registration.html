@@ -64,7 +64,7 @@
         {% if formData.role %}
           <option value='{"roleID" : {{formData.role.roleID}}, "roleName": "{{formData.role.roleName}}"}' selected>{{formData.role.roleName}}</option>
         {% else %}
-          <option value="" selected>Select one..</option>
+          <option value="0" selected>Select one..</option>
         {% endif %};
         <option value='{"roleID" : 1, "roleName": "Admin"}' >Admin</option>
         <option value='{"roleID" : 2, "roleName": "Employee"}' >Employee</option>

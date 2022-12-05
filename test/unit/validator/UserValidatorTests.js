@@ -6,6 +6,19 @@ describe('UserValidator', function () {
 
     describe('validateUser', function () {
 
+        it('should pass when user is valid', () => {
+            let user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": 1
+            }
+
+            expect(UserValidator.validateUser(user).emailError).to.equal(undefined)
+            expect(UserValidator.validateUser(user).passwordError).to.equal(undefined)
+            expect(UserValidator.validateUser(user).roleError).to.equal(undefined)
+
+        })
+
         it('should return error when email is empty', () => {
             let user = {
                 "email": "",
@@ -16,9 +29,19 @@ describe('UserValidator', function () {
             expect(UserValidator.validateUser(user).emailError).to.equal("Email cannot be empty.")
         })
 
-        it('should return error when email is not valid', () => {
+        it('should return error when email is empty', () => {
             let user = {
                 "email": "",
+                "password": "password",
+                "role": 1
+            }
+
+            expect(UserValidator.validateUser(user).emailError).to.equal("Email cannot be empty.")
+        })
+
+        it('should return error when email is missing @', () => {
+            let user = {
+                "email": "jamesasa.com",
                 "password": "password",
                 "role": 1
             }
@@ -26,76 +49,54 @@ describe('UserValidator', function () {
             expect(UserValidator.validateUser(user).emailError).to.equal("Not a valid email address.")
         })
 
-        it('should return error when job spec is empty', () => {
-            let jobRole = {
-                jobRoleName: "Software Engineer",
-                jobSpec: "",
-                jobSpecURL: "https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
-                jobFamily: 1,
-                bandLevel: 2
+        it('should return error when email is missing domain', () => {
+            let user = {
+                "email": "james@asa",
+                "password": "password",
+                "role": 1
             }
 
-            expect(JobRoleValidator.validateJobRole(jobRole).specError).to.equal("Job Spec cannot be empty.")
+            expect(UserValidator.validateUser(user).emailError).to.equal("Not a valid email address.")
         })
 
-        it('should return error when job spec is longer than 1000 characters', () => {
-            let jobRole = {
-                jobRoleName: "Software Engineer",
-                jobSpec: "a".repeat(1200),
-                jobSpecURL: "https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
-                jobFamily: 1,
-                bandLevel: 2
+        it('should return error when password is empty', () => {
+            let user = {
+                "email": "james@gmail.com",
+                "password": "",
+                "role": 1
             }
 
-            expect(JobRoleValidator.validateJobRole(jobRole).specError).to.equal("Job Spec is too long. Must not exceed 1000 characters.")
+            expect(UserValidator.validateUser(user).passwordError).to.equal("Password has to be at least 8 characters, have one upper case, one lower case and one special character.")
         })
 
-        it('should return error when job spec url is empty', () => {
-            let jobRole = {
-                jobRoleName: "Software Engineer",
-                jobSpec: "This is a new Kaios job.",
-                jobSpecURL: "",
-                jobFamily: 1,
-                bandLevel: 2
+        it('should return error when password is doesnt include a capital letter', () => {
+            let user = {
+                "email": "james@gmail.com",
+                "password": "password12!",
+                "role": 1
             }
 
-            expect(JobRoleValidator.validateJobRole(jobRole).specURLError).to.equal("Job Spec URL cannot be empty.")
+            expect(UserValidator.validateUser(user).passwordError).to.equal("Password has to be at least 8 characters, have one upper case, one lower case and one special character.")
         })
 
-        it('should return error when job spec url is invalid', () => {
-            let jobRole = {
-                jobRoleName: "Software Engineer",
-                jobSpec: "This is a new Kaios job.",
-                jobSpecURL: "htww.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
-                jobFamily: 1,
-                bandLevel: 2
+        it('should return error when password doesnt include a special character', () => {
+            let user = {
+                "email": "james@gmail.com",
+                "password": "Password12",
+                "role": 1
             }
 
-            expect(JobRoleValidator.validateJobRole(jobRole).specURLError).to.equal("Not a valid URL.")
+            expect(UserValidator.validateUser(user).passwordError).to.equal("Password has to be at least 8 characters, have one upper case, one lower case and one special character.")
         })
 
-        it('should return error when band level is not selected', () => {
-            let jobRole = {
-                jobRoleName: "Software Engineer",
-                jobSpec: "This is a new Kaios job.",
-                jobSpecURL: "https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
-                jobFamily: 1,
-                bandLevel: ''
+        it('should return error when role is not selected', () => {
+            let user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": 0
             }
 
-            expect(JobRoleValidator.validateJobRole(jobRole).bandLevelError).to.equal("Band level must be selected.")
-        })
-
-        it('should return error when job family is not selected', () => {
-            let jobRole = {
-                jobRoleName: "Software Engineer",
-                jobSpec: "This is a new Kaios job.",
-                jobSpecURL: "https://www.samanthaming.com/tidbits/94-how-to-check-if-object-is-empty/",
-                jobFamily: '',
-                bandLevel: 1
-            }
-
-            expect(JobRoleValidator.validateJobRole(jobRole).jobFamilyError).to.equal("Job family must be selected.")
+            expect(UserValidator.validateUser(user).roleError).to.equal("Role must be selected.")
         })
 
     })
