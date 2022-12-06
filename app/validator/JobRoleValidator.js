@@ -1,32 +1,46 @@
+// provides UI validation for a job role
 module.exports.validateJobRole = function (jobRole) {
 
     let error = {};
 
-    if (jobRole.name.length === 0) {
-        return {nameError: "Job Role must be entered"};
+    // job role name validation
+    if (jobRole.jobRoleName.trim().length === 0) {
+        return {nameError: "Job Role name cannot be empty."};
     }
 
-    if (jobRole.name.length >= 100) {
-        return {nameError: "Job Role name cannot exceed 100 characters."};
+    if (jobRole.jobRoleName.trim().length >= 100) {
+        return {nameError: "Job Role name is too long. Must not exceed 100 characters."};
     }
 
-    if (jobRole.job_spec.length === 0) {
-        return {specError: "Job Spec must be entered"};
+    // job role spec validation
+    if (jobRole.jobSpec.trim().length === 0) {
+        return {specError: "Job Spec cannot be empty."};
     }
 
-    if (jobRole.job_spec.length >= 500) {
-        return {specError: "Job Spec cannot exceed 100 characters."};
+    if (jobRole.jobSpec.trim().length >= 1000) {
+        return {specError: "Job Spec is too long. Must not exceed 1000 characters."};
     }
 
-    if (jobRole.job_spec_url.length === 0) {
-        return {specURLError: "Job Spec URL must be entered"};
+    // job spec url validation
+    if (jobRole.jobSpecURL.trim().length > 0) {
+        try {
+            // test if url is valid
+            url = new URL(jobRole.jobSpecURL);
+          } catch (_) {
+            return {specURLError: "Not a valid URL."};
+          }
+    } else {
+        return {specURLError: "Job Spec URL cannot be empty."};
     }
 
-    if (jobRole.job_family_id.length === 0) {
+    // job family validation
+    if (jobRole.jobFamily.length === 0) {
+        // console.log(jobRole)
         return {jobFamilyError: "Job family must be selected."};
     }
 
-    if (jobRole.band_level_id.length === 0) {
+    // band level validation
+    if (jobRole.bandLevel.length === 0) {
         return {bandLevelError: "Band level must be selected."};
     }
 

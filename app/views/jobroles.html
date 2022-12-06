@@ -15,6 +15,10 @@
 
 <h2>List of Job Roles</h2>
 
+{% if inserted %} 
+  <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
+{% endif %}
+
 {% if errormessage %} 
   <div class="alert alert-danger">{{ errormessage }}</div>
 {% else %}
@@ -24,13 +28,17 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Band Level</th>
+            <th>Capability</th>
           </tr>
         </thead>
 
         <tbody>
           {% for row in jobroles %}
           <tr> 
-            <td><a href="./jobSpec?id={{row.id}}&name={{row.name}}" target="_blank">{{row.name}}</a></td>
+            <td><a href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
+            <td>{{row.bandName}}</td>
+            <td>{{row.capability}}</td>
             <td><a href="./editjobroles/{{row.id}}">edit</a></td>
           </tr>
             {% endfor %}
