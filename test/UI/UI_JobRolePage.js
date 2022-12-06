@@ -35,7 +35,7 @@ describe('JobRolesCheck', function() {
     await driver.sleep(2000);
 
     // Confirm that it is main page by asserting heading
-    assert.equal(await driver.findElement(By.xpath("/html[1]/body[1]/h2[1]")).getText(), "List of Job Roles");
+    assert.equal(await driver.findElement(By.id("job-role-heading")).getText(), "List of Job Roles");
     console.log("LOG asserting Header of the page: OK");
 
     // Checking if Job Roles table element exists on a page
