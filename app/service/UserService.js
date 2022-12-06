@@ -11,7 +11,6 @@ module.exports.register = async function (user) {
 
     // HASH PASSWORD 
     user.password = await bcrypt.hash(user.password, user.salt)
-
     try {
         const response = await axios.post(this.REGISTRATION, user);
         return response;
