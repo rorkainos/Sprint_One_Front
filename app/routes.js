@@ -30,4 +30,18 @@ router.get('/jobspec/:id', async (req, res) => {
     res.render('jobSpec', { jobSpecification: jobSpecification } )
 });
 
+router.get('/deleteJobRole/:id', async (req, res) => {
+    let id = req.params.id;
+    let data = [];
+
+    try {
+         await JobService.deleteJobRole(id);
+         data = await JobService.getJobRoles();    
+    }catch (err) {
+        res.locals.errormessage = "An error occured when deleting a JobRole";
+    }
+
+    res.render('jobroles', { jobroles: data } ) 
+});
+
 module.exports = router
