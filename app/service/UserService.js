@@ -7,8 +7,10 @@ module.exports.REGISTRATION = '/hr/registration';
 // get all of the job roles available
 module.exports.register = async function (user) {
 
+    user.salt = await bcrypt.genSalt()
+
     // HASH PASSWORD 
-    user.password = await bcrypt.hash(user.password, await bcrypt.genSalt())
+    user.password = await bcrypt.hash(user.password, user.salt)
 
     try {
         const response = await axios.post(this.REGISTRATION, user);
