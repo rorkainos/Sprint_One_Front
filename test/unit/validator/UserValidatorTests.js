@@ -91,6 +91,16 @@ describe('UserValidator', function () {
             expect(UserValidator.validateUser(user).passwordError).to.equal("Password has to be at least 8 characters, have one upper case, one lower case and one special character.")
         })
 
+        it('should return error when password doesnt include a lower case leter', () => {
+            let user = {
+                "email": "james@gmail.com",
+                "password": "PASSWORD12!",
+                "role": 1
+            }
+
+            expect(UserValidator.validateUser(user).passwordError).to.equal("Password has to be at least 8 characters, have one upper case, one lower case and one special character.")
+        })
+
         it('should return error when role is not selected', () => {
             let user = {
                 "email": "james@gmail.com",

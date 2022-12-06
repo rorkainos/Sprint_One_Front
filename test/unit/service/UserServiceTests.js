@@ -27,6 +27,25 @@ describe('UserService', function () {
 
         })
 
+        it('should return error Could not register user', async () => {
+
+            var user = {
+                "email": "james@gmail.com",
+                "password": "Password12!",
+                "role": JSON.stringify({ "roleID": 1, "roleName": "Engineer" })
+            }
+
+            // mocking an error 500 response from backend
+            var mock = new MockAdapter(axios);
+            mock.onGet(UserService.REGISTRATION).reply(400);
+            try {
+                await UserService.register(user);
+            } catch (error) {
+                expect(error.message).to.equal('Could not register user.');
+            }
+
+        })
+
         it('should receive 201 when user inserted', async () => {
 
             var mock = new MockAdapter(axios);
