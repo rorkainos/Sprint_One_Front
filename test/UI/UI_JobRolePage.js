@@ -12,6 +12,8 @@ const { WebDriver } = require('selenium-webdriver');
 const { default: isDisplayed } = require('webdriverio/build/commands/element/isDisplayed');
 const e = require('express');
 
+const jobRolesPageURL = "http://localhost:3000/jobroles";
+
 describe('JobRolesCheck', function() {
   this.timeout(30000)
   let driver
@@ -27,7 +29,7 @@ describe('JobRolesCheck', function() {
   it('Asserting that heading List of Job Roles exists, asserting Job Roles table exist', async function() {
 
     // Go to main Job Roles page
-    await driver.get("http://localhost:3000/jobroles");
+    await driver.get(jobRolesPageURL);
 
     // Wait for 2s for screen record to capture test
     await driver.sleep(2000);
