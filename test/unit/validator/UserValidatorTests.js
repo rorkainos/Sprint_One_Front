@@ -34,27 +34,17 @@ describe('UserValidator', function () {
         it('should return error when email is empty', () => {
             let user = {
                 "email": "",
-                "password": "password",
+                "password": "Password12!",
                 "role": 1
             }
 
-            expect(UserValidator.validateUser(user).emailError).to.equal("Email cannot be empty.")
-        })
-
-        it('should return error when email is empty', () => {
-            let user = {
-                "email": "",
-                "password": "password",
-                "role": 1
-            }
-
-            expect(UserValidator.validateUser(user).emailError).to.equal("Email cannot be empty.")
+            expect(UserValidator.validateUser(user).emailError).to.equal("Not a valid email address.")
         })
 
         it('should return error when email is missing @', () => {
             let user = {
                 "email": "jamesasa.com",
-                "password": "password",
+                "password": "Password12!",
                 "role": 1
             }
 
@@ -64,7 +54,7 @@ describe('UserValidator', function () {
         it('should return error when email is missing domain', () => {
             let user = {
                 "email": "james@asa",
-                "password": "password",
+                "password": "Password12!",
                 "role": 1
             }
 
