@@ -8,7 +8,7 @@
 
   <h2 class="govuk-heading-l">Edit Job Role</h2>
 
-    <form name="jobRoleForm" action="/editjobroles/{{data.job_role_id}}" onsubmit=""  method="post">
+    <form name="jobRoleForm" action="./{{data.job_role_id}}" onsubmit=""  method="post">
       {# NAME ERROR HEADING #}
       {% if error.nameError %}
         <div class="govuk-error-message">{{ error.nameError }}</div>
