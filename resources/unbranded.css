@@ -3302,7 +3302,8 @@ x:-moz-any-link {
   padding-bottom: 15px;
   border-top: 1px solid #b1b4b6;
   color: #0b0c0c;
-  background: #ffffff;
+  background-image: url('/kainos_header.png');
+  color: white;
 }
 @media print {
   .govuk-footer {
@@ -3566,7 +3567,6 @@ x:-moz-any-link {
 
 .govuk-header__container--full-width {
   padding: 0 15px;
-  border-color: #1d70b8;
 }
 .govuk-header__container--full-width .govuk-header__menu-button {
   right: 15px;
@@ -3576,7 +3576,6 @@ x:-moz-any-link {
   position: relative;
   margin-bottom: -10px;
   padding-top: 10px;
-  border-bottom: 10px solid #1d70b8;
 }
 .govuk-header__container:after {
   content: "";
@@ -8543,4 +8542,24 @@ x:-moz-any-link {
     margin-top: 0;
     margin-bottom: 0;
   }
+}
+
+*{
+  font-family: "Gothic A1";
+}
+
+#kainos_header{
+  /* background-color: white; */
+  background-image: url('/kainos_header.png');
+  height: 15vh;
+}
+
+body{
+  height: 75vh;
+}
+
+#role-manager{
+  background-color: #273582;
+  padding: 25px;
+  color: white !important;
 }

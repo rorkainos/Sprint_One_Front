@@ -2,6 +2,7 @@ const express = require('express')
 const JobRoleValidator = require('./validator/JobRoleValidator')
 const js = require('./service/JobService')
 const router = express.Router()
+router.use(express.static('resources'));
 
 // Add your routes here - above the module.exports line
 const JobService = require('./service/JobService');
