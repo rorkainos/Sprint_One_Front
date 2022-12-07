@@ -1,0 +1,159 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} 
+  Add New Job Role
+{% endblock %}
+
+{% block content %}
+
+  {# PAGE HEADING #}
+  <h2 class="govuk-heading-l">Add New Job Role</h2>
+
+  {# INSERT EXCEPTION ERROR #}
+  {% if error.insertError %}
+    <div class="govuk-error-message" id="insertError">{{ error.insertError }}</div>
+  {% endif %}
+
+  {# NAME ERROR HEADING #}
+  {% if error.nameError %}
+    <div class="govuk-error-message" id="nameError">{{ error.nameError }}</div>
+  {% endif %}
+
+  {# START FORM #}
+  <form name="jobRoleForm" method="post">
+
+    {# ROLE NAME FIELD #}
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label" for="jobRoleName">
+      Role Name
+    </label>
+      </h1>
+      <input class="govuk-input" id="jobRoleName" name="jobRoleName" value="{{data.jobRoleName}}" type="text" >
+    </div>
+
+    {# SPEC ERROR HEADING #}
+    {% if error.specError %}
+      <div class="govuk-error-message" id="specError">{{ error.specError }}</div>
+    {% endif %}
+    <div class="govuk-form-group">
+
+      {# JOB SPEC TITLE AND CHARACTERS ROW #}
+      <div class="govuk-grid-row">
+
+        {# JOB SPEC COLUMN #}
+        <div class="govuk-grid-column-one-half">
+
+          {# JOB SPEC FIELD #}
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label" for="jobSpec">
+      Job Spec
+    </label>
+          </h1>
+        </div>
+
+        {# CHARACTERS REMAINING COLUMN #}
+        <div class="govuk-grid-column-one-half">
+          <p id='specLength'>Characters remaining: 1000</p>
+        </div>
+      </div>
+      <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint">{{data.jobSpec}}</textarea>
+    </div>
+
+    {# SPEC URL ERROR HEADING #}
+    {% if error.specURLError %}
+      <div class="govuk-error-message" id="specURLError">{{ error.specURLError }}</div>
+    {% endif %}
+
+    {# JOB SPEC URL FIELD #}
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label" for="jobSpecURL">
+      Job Spec URL
+    </label>
+      </h1>
+      <input class="govuk-input" id="jobSpecURL" value="{{data.jobSpecURL}}" name="jobSpecURL" type="text" >
+    </div>
+
+    {# JOB FAMILY ERROR HEADING #}
+    {% if error.jobFamilyError %}
+      <div class="govuk-error-message" id="jobFamilyError">{{ error.jobFamilyError }}</div>
+    {% endif %}
+
+    {# JOB FAMILY AND BAND LEVEL ROW #}
+    <div class="govuk-grid-row">
+
+      {# JOB FAMILY COLUMN #}
+      <div class="govuk-grid-column-one-half">
+
+        {# JOB FAMILY FIELD #}
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="sort">
+    Job Family
+  </label>
+          <select class="govuk-select" id="jobFamily" name="jobFamily" >
+            {% if  data.jobFamily.jobFamilyName.length >= 1%}
+              <option value='{"jobFamilyID":{{data.jobFamily.jobFamilyID}},"jobFamilyName":"{{data.jobFamily.jobFamilyName}}"}'>{{data.jobFamily.jobFamilyName}}</option>
+            {% else  %}
+              <option value="" >Select one...</option>
+            {% endif %}
+            {% for jfl in formData.jobFamilyList %}
+              <option value='{"jobFamilyID":{{jfl.job_family_id}},"jobFamilyName":"{{jfl.family_name}}"}'>{{jfl.family_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      {# BAND LEVEL COLUMN  #}
+      <div class="govuk-grid-column-one-half">
+
+        {# BAND LEVEL ERROR HEADING #}
+        {% if error.bandLevelError %}
+          <div class="govuk-error-message" id="bandLevelError">{{ error.bandLevelError }}</div>
+        {% endif %}
+
+        {# BAND LEVEL FIELD #}
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="bandLevel">
+    Band Level 
+  </label>
+          <select class="govuk-select" id="bandLevel" name="bandLevel" >
+            {% if  data.bandLevel.bandLevelName.length > 1%}
+              <option value='{"bandLevelID":{{data.bandLevel.bandLevelID}},"bandLevelName":"{{data.bandLevel.bandLevelName}}"}'>{{data.bandLevel.bandLevelName}}</option>
+            {% else  %}
+              <option value="" >Select one...</option>
+            {% endif %}
+            {% for bl in formData.bandList %}
+              <option value='{"bandLevelID":{{bl.band_level_id}},"bandLevelName":"{{bl.band_name}}"}'>{{bl.band_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    {# SUBMIT FORM BUTTON #}
+    {{ govukButton({
+  text: "Save and continue"
+}) }}
+
+    {# END FORM #}
+  </form>
+
+  {# SCRIPT FOR COUNTING CHARACTERS IN SPEC TEXT AREA #}
+  <script>
+
+    const jobSpec = document.getElementById('jobSpec');
+
+    const specLength = document.getElementById('specLength');
+
+    jobSpec.addEventListener('input', updateValue);
+    specLength.innerHTML = "Characters remaining: " + (
+    1000 - jobSpec.value.length);
+
+    function updateValue() {
+      specLength.innerHTML = "Characters remaining: " + (
+      1000 - jobSpec.value.length);
+    }
+  </script>
+
+{% endblock %}
