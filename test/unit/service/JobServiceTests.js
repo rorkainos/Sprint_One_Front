@@ -91,4 +91,21 @@ describe('JobService', function () {
         }
       })
     })
+
+    describe('deleteJobRole', function () {
+    
+      it('should return error Could not delete Job Role', async () => {        
+        // mocking an error 500 response from backend
+
+        let id = '1';
+        var mock = new MockAdapter(axios);
+        mock.onGet(JobService.JOB_ROLES + "/" + id).reply(500);
+        
+        try{
+          await JobService.deleteJobRole(id);
+        }catch(error){
+          expect(error.message).to.equal('Could not delete Job Role')
+        }
+      })
+    })
   })

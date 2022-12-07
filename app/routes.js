@@ -4,16 +4,31 @@ const router = express.Router()
 // Add your routes here - above the module.exports line
 const JobService = require('./service/JobService');
 
+var session = require('express-session');
+router.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
+
+
 // render the jobroles.html page and pass in a list of job roles
 router.get('/jobroles', async (req, res) => {
     let data = [];
 
     try {
        data = await JobService.getJobRoles();
-    } catch (e) {
-        res.locals.errormessage = "An error occured when retrieving the list of Job Roles"
-    }
+
+       if(req.session.deleteSuccessful) {
+            res.locals.deleteSuccess = "Successfully Deleted Job Role";
+            req.session.deleteSuccessful = null;
+        }
+
+        if(req.session.deleteFailure) {
+            res.locals.deleteErrorMessage = "An error occured when retrieving the job specification";
+            req.session.deleteFailure = null;
+        }   
     
+    } catch (e) {
+        res.locals.errormessage = "An error occured when retrieving the list of Job Roles";
+    }
+
     res.render('jobroles', { jobroles: data } ) 
 });
 
@@ -32,16 +47,16 @@ router.get('/jobspec/:id', async (req, res) => {
 
 router.get('/deleteJobRole/:id', async (req, res) => {
     let id = req.params.id;
-    let data = [];
 
     try {
          await JobService.deleteJobRole(id);
-         data = await JobService.getJobRoles();    
+         req.session.deleteSuccessful = true;
     }catch (err) {
-        res.locals.errormessage = "An error occured when deleting a JobRole";
+        req.session.deleteFailure = true;
     }
 
-    res.render('jobroles', { jobroles: data } ) 
+    // redirect to load jobrole page
+    res.redirect('/jobroles') 
 });
 
 module.exports = router

@@ -25,7 +25,7 @@ module.exports.getJobSpecification = async function (jobID) {
 
 module.exports.deleteJobRole = async function (jobID) {
     try{
-        await axios.delete(this.JOB_ROLES + "/"+ jobID);
+        await axios.delete(this.JOB_ROLES + "/" + jobID);
     }catch{ 
         throw new Error('Could not delete Job Role');
     }
