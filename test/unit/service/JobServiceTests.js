@@ -2,6 +2,7 @@ var axios = require('axios');
 var MockAdapter = require('axios-mock-adapter');
 var chai = require('chai');  
 const expect = chai.expect;
+const assert = chai.assert;
 const JobService = require('../../../app/service/JobService');
 
 describe('JobService', function () {
@@ -99,12 +100,26 @@ describe('JobService', function () {
 
         let id = '1';
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.JOB_ROLES + "/" + id).reply(500);
+        mock.onDelete(JobService.JOB_ROLES + "/" + id).reply(500);
         
         try{
           await JobService.deleteJobRole(id);
         }catch(error){
           expect(error.message).to.equal('Could not delete Job Role')
+        }
+      })
+
+      it('delete should return without error ', async () => {        
+        // mocking an error 500 response from backend
+
+        let id = '1';
+        var mock = new MockAdapter(axios);
+        mock.onDelete(JobService.JOB_ROLES + "/" + id).reply(200);
+        
+        try{
+          await JobService.deleteJobRole(id);
+        }catch(error){
+          assert.fail('Exception should not have been thrown');
         }
       })
     })
