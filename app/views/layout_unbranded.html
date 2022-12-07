@@ -2,6 +2,8 @@
 
 {% block headIcons %}
   <link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
+  <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Gothic+A1">
 {% endblock %}
 
 {% block head %}
@@ -16,7 +18,7 @@
 {% block skipLink %}{% endblock %}
 
 {% block header %}
-<header class="govuk-header " role="banner" data-module="govuk-header">
+<header class="govuk-header " id="kainos_header" role="banner" data-module="govuk-header">
   <div class="govuk-header__container govuk-width-container">
     <div class="govuk-header__logo">
       <a href="/" class="govuk-header__link govuk-header__link--homepage">

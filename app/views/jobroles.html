@@ -22,18 +22,18 @@
       <table class="govuk-table">
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Name</th>
-            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Band Level</th>
-            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Capability</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-half">Name</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Band Level</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Capability</th>
           </tr>
         </thead>
 
         <tbody class="govuk-table__body">
           {% for row in jobroles %}
           <tr class="govuk-table__row"> 
-            <td class="govuk-table__cell"><a href="./jobSpec/{{row.id}}" target="_blank">123123312132</a></td>
-            <td class="govuk-table__cell">123123312132</td>
-            <td class="govuk-table__cell">123123312132</td>
+            <td  class="govuk-table__cell govuk-input--width-20"><a  href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
+            <td class="govuk-table__cell">{{row.bandName}}</td>
+            <td class="govuk-table__cell">{{row.capability}}</td>
           </tr>
             {% endfor %}
         </tbody>
