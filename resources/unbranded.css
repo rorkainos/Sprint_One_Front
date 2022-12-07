@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+ 
 @charset "UTF-8";
 a, .govuk-link {
   font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
@@ -8545,7 +8547,7 @@ x:-moz-any-link {
 }
 
 *{
-  font-family: "Gothic A1";
+  font-family: "Roboto" !important;
 }
 
 #kainos_header{
@@ -8562,4 +8564,9 @@ body{
   background-color: #273582;
   padding: 25px;
   color: white !important;
+  padding-bottom: -50px !important;
+}
+
+#academy-logo{
+  width: 100%;
 }
