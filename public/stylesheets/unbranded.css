@@ -3533,6 +3533,7 @@ x:-moz-any-link {
   margin-bottom: 0;
 }
 
+body {width: 100vw !important;}
 .govuk-header {
   font-family: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3543,7 +3544,8 @@ x:-moz-any-link {
   line-height: 1.1428571429;
   border-bottom: 10px solid #ffffff;
   color: #ffffff;
-  background: #0b0c0c;
+  background: #61a83f;
+  /* background-image:image("./assets/images/Kainos LinkedIn Header 060320.png"); */
 }
 @media print {
   .govuk-header {

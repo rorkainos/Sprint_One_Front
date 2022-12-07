@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Job Roles</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
+{% extends "layout_unbranded.html" %}
 
-<body>
+
+
+{% block pageTitle %} 
+  Add New Job Role
+{% endblock %}
 
 {% block content %}
 
@@ -23,26 +18,27 @@
   <div class="alert alert-danger">{{ errormessage }}</div>
 {% else %}
 
-    {% if jobroles and jobroles.length > 0 %} 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Band Level</th>
-            <th>Capability</th>
+    {% if jobroles and jobroles.length > 0 %}
+      <table class="govuk-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Name</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Band Level</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-third">Capability</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody class="govuk-table__body">
           {% for row in jobroles %}
-          <tr> 
-            <td><a href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
-            <td>{{row.bandName}}</td>
-            <td>{{row.capability}}</td>
+          <tr class="govuk-table__row"> 
+            <td class="govuk-table__cell"><a href="./jobSpec/{{row.id}}" target="_blank">123123312132</a></td>
+            <td class="govuk-table__cell">123123312132</td>
+            <td class="govuk-table__cell">123123312132</td>
           </tr>
             {% endfor %}
         </tbody>
-
+      </table>
+      
     {% else %}
       There are no Job Roles. 
     {% endif %}
@@ -50,6 +46,3 @@
 {% endif %}
 
 {% endblock %}
-
-</body>
-</html>
