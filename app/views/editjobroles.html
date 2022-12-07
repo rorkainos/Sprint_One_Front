@@ -78,13 +78,15 @@
     Band Level 
   </label>
   <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandLevel}}" >
-    {% if  data.bandLevel != null %}
-      <option value={{data.bandLevel}}>{{data.band_name}}</option>
-    {% else  %}
-      <option value="" >Select one...</option>
+    {% if data.bandLevel != null %}
     {% endif %}
     {% for bl in formData.bandList %}
-      <option value="{{bl.band_level_id}}">{{bl.band_name}}</option>
+    <script> console.log( '{{bl.band_name}}' )</script>
+    <script> console.log( '{{bl.band_level_id}}' )</script>
+    <script> console.log( '{{data.bandLevel}}' )</script>
+    {% if bl.band_level_id == data.jobFamily%}
+     <option value="{{data.bandLevel}}">{{bl.band_name}}</option>
+    {% endif %}
     {% endfor %}
   </select>
 </div>
