@@ -7,6 +7,8 @@ const JobService = require('./service/JobService');
 var session = require('express-session');
 router.use(session({secret: 'mySecret', resave: false, saveUninitialized: false}));
 
+router.use("/views", express.static(__dirname + '/app/views'));
+router.use("/views/style.css", express.static(__dirname + '/app/views/style.css'));
 
 // render the jobroles.html page and pass in a list of job roles
 router.get('/jobroles', async (req, res) => {
