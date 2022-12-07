@@ -49,3 +49,7 @@ npm run build
 ## Running test
 npm run test
 
+The following environment variables need to be set in your local .zshrc file to enable running selenium tests:
+export UI_URL="http://localhost:3000"
+
+To run selenium test: mocha <test dir> i.e. mocha ./test/UI/UI_JobRolePage.js  
