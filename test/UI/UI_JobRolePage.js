@@ -12,7 +12,7 @@ const { WebDriver } = require('selenium-webdriver');
 const { default: isDisplayed } = require('webdriverio/build/commands/element/isDisplayed');
 const e = require('express');
 
-const jobRolesPageURL = "http://localhost:3000/jobroles";
+const jobRolesPageURL = process.env.UI_URL + "/jobroles";
 
 describe('JobRolesCheck', function() {
   this.timeout(30000)
