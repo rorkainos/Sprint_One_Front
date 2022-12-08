@@ -1,6 +1,6 @@
 version: '1'
 services:
-  web:
+  team2-web:
     container_name: EXPRESS_GOV
     hostname: express_gov
     ports:
