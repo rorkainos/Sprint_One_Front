@@ -56,10 +56,11 @@ router.post('/editjobroles/', async (req, res) => {
         let BandsandJobFamiliesList = await JobService.getJobRoleInfo();
         //let BandLevelJobFamily = await JobService.getBandAndFamily(BandsandJobFamiliesList,req.body.jobFamily,req.body.bandLevel);
        // req.body = Object.assign(req.body,BandLevelJobFamily, job_role_id_object);
-        res.redirect('editjobroles/'+req.body.job_role_id)
+        res.render('editjobroles' , {error:error , formData: BandsandJobFamiliesList} )
      }else{
     JobService.putEditRole(req.body, req.body.job_role_id);
-    res.redirect('/jobroles', {success:true} )
+    data = await JobService.getJobRoles();
+    res.render('jobroles', {success:true, jobroles:data} )
     }
 });
 
