@@ -6,29 +6,32 @@ Kainos academy
 
 {% block content %}
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
       Job role management system.
       <span class="govuk-caption-xl">{{releaseVersion}}</span>
-    </h1>{{releaseVersion | log }}
+      </h1>{{releaseVersion | log }}
 
-    <p>This website allows Kainos employees to retrieve and update job roles and their relevant information</p>
+      <p>This website allows Kainos employees to retrieve and update job roles and their relevant information</p>
 
-    <h2 class="govuk-heading-m">Website page links</h2>
+      <h2 class="govuk-heading-m">Website page links</h2>
 
-    <ul class="govuk-list govuk-list--bullet">
-      <li>
-        <a href="/jobroles" id="gotoJobRolesPage">View job roles</a>
-      </li>
-      <li>
-        <a href="/addjobrole" id="gotoAddJobRolePage">Add new job role</a>
-      </li>
-    </ul>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          <a href="/jobroles" id="gotoJobRolesPage">View job roles</a>
+        </li>
+        <li>
+          <a href="/addjobrole" id="gotoAddJobRolePage">Add new job role</a>
+        </li>
+        <li>
+          <a href="/registration" id="gotoAddJobRolePage">Register</a>
+        </li>
+      </ul>
+    </div>
+    <div class="govuk-grid-column-one-third">
+      <img id='academy-logo' src='/academy-logo.png'>
+    </div>
   </div>
-  <div class="govuk-grid-column-one-third">
-    <img id='academy-logo' src='/academy-logo.png'>
-  </div>
-</div>
 
 {% endblock %}
