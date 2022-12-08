@@ -103,7 +103,7 @@ describe('JobService', function () {
       })
     })
 
-    describe('putEditRole', function () { 
+    describe('editRole', function () { 
 
       it('should receive 201 when job role inserted', async () => {
     
@@ -120,7 +120,7 @@ describe('JobService', function () {
         }
         const target = JobService.JOB_ROLE_ENDPOINT + id;
         mock.onPut(target, body).reply(201,1);
-        var results = await JobService.putEditRole(body, id);
+        var results = await JobService.editRole(body, id);
         expect(results.status).to.equal(201)
       })
 
@@ -139,7 +139,7 @@ describe('JobService', function () {
   
         mock.onPut(JobService.JOB_ROLE_ENDPOINT, body).reply(500);
         try {
-          await JobService.putEditRole(body);
+          await JobService.editRole(body);
         } catch (error) {
           expect(error.message).to.equal('Could not create new Job Roles.');
         }

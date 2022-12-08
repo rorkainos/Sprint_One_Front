@@ -2,7 +2,6 @@ const axios = require('axios');
 axios.defaults.baseURL = process.env.API_URL;
 
 module.exports.GET_JOB_SPEC =  '/hr/job-specification/';
-module.exports.GET_ROLE = '/hr/'
 module.exports.GET_JOB_ROLE_INFO =  '/hr/job-role-info';
 module.exports.JOB_ROLE_ENDPOINT = '/hr/job-roles/';
 
@@ -53,7 +52,7 @@ module.exports.getJobSpecification = async function (jobID) {
 
 
 //returns the information for the edit role fields
-module.exports.getEditRole = async function (jobID) {
+module.exports.getRole = async function (jobID) {
     try{
         const response = await axios.get(this.JOB_ROLE_ENDPOINT + jobID);
         return response.data;
@@ -65,7 +64,7 @@ module.exports.getEditRole = async function (jobID) {
 
 
 // put request to edit job role, passes in job_role_id to get the correct 
-module.exports.putEditRole = async function (data, job_role_id) {
+module.exports.editRole = async function (data, job_role_id) {
     try {
         const targetURL = this.JOB_ROLE_ENDPOINT + job_role_id
         const response = await axios.put(targetURL, data);

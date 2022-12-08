@@ -6,7 +6,7 @@
 
 {% block content %}
 
-  <h2 class="govuk-heading-l">Edit Job Role</h2>
+  <h2 class="govuk-heading-l">Edit Job Role: {{data.jobRoleName}}</h2>
     <script>console.log({{job_role_id}})</script>
     <form name="jobRoleForm" action="/editjobroles" onsubmit=""  method="post">
       <input type="hidden" value="{{data.job_role_id}}" name="job_role_id">

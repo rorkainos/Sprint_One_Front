@@ -69,7 +69,7 @@ router.get('/editjobroles/:id' , async (req, res) => {
     //app.set('job_role_id', req.params.id)
     let job_role_id = req.params.id
     //let job_role_id_object = {job_role_id:app.get('job_role_id')}
-    let response = await JobService.getEditRole(job_role_id);
+    let response = await JobService.getRole(job_role_id);
     let BandsandJobFamiliesList = await JobService.getJobRoleInfo();
     response.job_role_id = job_role_id;
     res.render('editjobroles', {data:response, formData: BandsandJobFamiliesList, job_role_id:job_role_id})
@@ -80,17 +80,12 @@ router.get('/editjobroles/:id' , async (req, res) => {
 router.post('/editjobroles/', async (req, res) => {
     let error = new JobRoleValidator.validateJobRole(req.body);    
     if (Object.keys(error).length !== 0) {
-        let job_role_id_object = {job_role_id:app.get('job_role_id')}
-        let BandsandJobFamiliesList = await JobService.getJobRoleInfo();
-
-        //let BandLevelJobFamily = await JobService.getBandAndFamily(BandsandJobFamiliesList,req.body.jobFamily,req.body.bandLevel);
-        // req.body = Object.assign(req.body,BandLevelJobFamily, job_role_id_object);
-        
+        let BandsandJobFamiliesList = await JobService.getJobRoleInfo();        
         res.render('editjobroles' , {error:error , formData: BandsandJobFamiliesList} )
      }else{
 
         try{
-            await JobService.putEditRole(req.body, req.body.job_role_id);
+            await JobService.editRole(req.body, req.body.job_role_id);
             data = await JobService.getJobRoles();
             req.session.editsuccess = true;
         }catch(e){
