@@ -1,0 +1,83 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} 
+  Add New Job Role
+{% endblock %}
+
+{% block content %}
+
+  {# PAGE HEADING #}
+  <h2 class="govuk-heading-l">User Registration</h2>
+
+  {# REGISTRATION EXCEPTION ERROR #}
+  {% if error.registrationError %}
+    <div class="govuk-error-message">{{ error.registrationError }}</div>
+  {% endif %}
+
+  {# START OF REGISTRATION FORM #}
+
+  <form method="post">
+
+    {# EMAIL TITLE #}
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="email">
+    Email address
+  </label>
+
+      {# EMAIL ERROR #}
+      {% if error.emailError %}
+        <div class="govuk-error-message">{{ error.emailError }}</div>
+      {% endif %}
+
+      {# EMAIL FIELD #}
+      <input class="govuk-input" value="{{formData.email}}" id="Email" name="email" type="text" spellcheck="false" aria-describedby="email-hint" autocomplete="email">
+    </div>
+
+    {# PASSWORD TITLE #}
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="event-name">
+      Password
+    </label>
+
+      {# PASSWORD ERROR #}
+      {% if error.passwordError %}
+        <div class="govuk-error-message">{{ error.passwordError }}</div>
+      {% endif %}
+
+      {# PASSWORD FIELD #}
+      <input class="govuk-input" value="{{formData.password}}" id="Password" name="password" type="password">
+    </div>
+
+    {# ROLE SELECT DROPDOWN #}
+    <div class="govuk-form-group">
+      <label class="govuk-label" for="sort">
+    Role
+  </label>
+
+      {# ROLE ERROR #}
+      {% if error.roleError %}
+        <div class="govuk-error-message">{{ error.roleError }}</div>
+      {% endif %}
+
+      {# ROLE SELECT #}
+      <select class="govuk-select" id="Role" name="role">
+        {% if (formData.role) %}
+          <option value='{"roleID": {{formData.role.roleID}}, "roleName": "{{formData.role.roleName}}"}' selected>{{formData.role.roleName}}</option>
+        {% else %}
+          <option value="0" selected>Select one..</option>
+        {% endif %};
+        <option value='{"roleID" : 1, "roleName": "Admin"}' >Admin</option>
+        <option value='{"roleID" : 2, "roleName": "Employee"}' >Employee</option>
+
+      </select>
+    </div>
+
+    {# SUBMIT BUTTON #}
+    <button class="govuk-button" data-module="govuk-button">
+  Register
+</button>
+
+    {# END OF REGISTRATION FORM #}
+  </form>
+
+{% endblock %}

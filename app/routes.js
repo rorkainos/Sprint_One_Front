@@ -1,6 +1,7 @@
 const express = require('express')
 const JobRoleValidator = require('./validator/JobRoleValidator')
-const js = require('./service/JobService')
+const UserValidator = require('./validator/UserValidator')
+const UserService = require('./service/UserService')
 const router = express.Router()
 router.use(express.static('resources'));
 
@@ -90,12 +91,53 @@ router.get('/jobspec/:id', async (req, res) => {
     let id = req.params.id;
 
     try {
-        jobSpecification = await JobService.getJobSpecification(id);    
-    }catch (err) {
+        jobSpecification = await JobService.getJobSpecification(id);
+    } catch (err) {
         res.locals.errormessage = "An error occured when retrieving the job specification";
     }
 
-    res.render('jobSpec', { jobSpecification: jobSpecification } )
+    res.render('jobSpec', { jobSpecification: jobSpecification })
+});
+
+// render user registration page
+router.get('/registration', async (req, res) => {
+
+    res.render('registration')
+});
+
+// render user registration page
+router.post('/registration', async (req, res) => {
+    // retain user without hashed password for registration error 
+    let user = {
+        ...req.body
+    }
+    console.log(user)
+    user.role = JSON.parse(user.role)
+
+    // VALIDATE USER
+    let error = await UserValidator.validateUser(req.body)
+
+    // IF VALID INSERT TO DB
+    if (Object.keys(error).length == 0) {
+
+        try {
+            req.body.role = user.role.roleID
+            // parse user role id
+            console.log(req.body)
+            // register new user
+            await UserService.register(req.body)
+            // redirect to job roles page
+            res.redirect('index')
+        } catch {
+            // render form again with insertion error displayed
+            let error = { "registrationError": "Could not register new user, please try again." }
+            res.render('registration', { error: error, formData: user })
+        }
+        // IF NOT RENDER FORM AGAIN
+    } else {
+        // render form again with errors and populated fields
+        res.render('registration', { error: error, formData: user })
+    }
 });
 
 router.get('/deleteJobRole/:id', async (req, res) => {
