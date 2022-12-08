@@ -187,7 +187,7 @@ describe('JobService', function () {
 
         let id = '1';
         var mock = new MockAdapter(axios);
-        mock.onDelete(JobService.JOB_ROLES + "/" + id).reply(500);
+        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + id).reply(500);
         
         try{
           await JobService.deleteJobRole(id);
@@ -201,7 +201,7 @@ describe('JobService', function () {
 
         let id = '1';
         var mock = new MockAdapter(axios);
-        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + "/" + id).reply(200);
+        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + id).reply(200);
         
         try{
           await JobService.deleteJobRole(id);

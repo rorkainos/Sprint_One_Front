@@ -79,7 +79,7 @@ module.exports.putEditRole = async function (data, job_role_id) {
 
 module.exports.deleteJobRole = async function (jobID) {
     try{
-        await axios.delete(this.JOB_ROLE_ENDPOINT + "/" + jobID);
+        await axios.delete(this.JOB_ROLE_ENDPOINT + jobID);
     }catch{ 
         throw new Error('Could not delete Job Role');
     }
