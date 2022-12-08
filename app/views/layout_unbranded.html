@@ -1,17 +1,86 @@
 {% extends "layout.html" %}
 
 {% block headIcons %}
-  <link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
+<link rel="shortcut icon" href="{{ asset_path }}images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Galano+Grotesque">
 {% endblock %}
 
 {% block head %}
-  <!--[if lte IE 8]><link href="/public/stylesheets/unbranded-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
-  <!--[if gt IE 8]><!--><link href="/public/stylesheets/unbranded.css" media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
+<!--[if lte IE 8]><link href="/public/stylesheets/unbranded-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if gt IE 8]><!-->
+<link href="/unbranded.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/style.css"/>
 
-  {% for stylesheetUrl in extensionConfig.stylesheets %}
-    <link href="{{ stylesheetUrl }}" rel="stylesheet" type="text/css" />
-  {% endfor %}
+<!--<![endif]-->
+
+{% for stylesheetUrl in extensionConfig.stylesheets %}
+<link href="{{ stylesheetUrl }}" rel="stylesheet" type="text/css" />
+{% endfor %}
 {% endblock %}
 
-{% block header %}{% endblock %}
-{% block footer %}{% endblock %}
+{% block bodyStart %}
+<div id="page-container">
+  <div id="content-wrap">
+{% endblock %}
+
+{% block skipLink %}{% endblock %}
+
+{% block header %}
+<header class="govuk-header " id="kainos_header" role="banner" data-module="govuk-header">
+
+  <div class="govuk-header__container govuk-width-container">
+
+    <div class="govuk-header__logo">
+
+      <a href="/" class="govuk-header__link govuk-header__link--homepage" id="gotoHomePage">
+
+        <img src="https://www.kainos.com/globalassets/images/5_logos/kainos_logo.png?mode=crop&width=200" />
+
+      </a>
+
+    </div>
+
+  </div>
+
+</header>
+{% endblock %}
+
+{% block footer %}
+
+<footer class="govuk-footer " id="kainos_footer" role="contentinfo">
+  <div class="govuk-width-container ">
+    <div class="govuk-width-container ">
+      <div class="govuk-footer__navigation">
+        <div class="govuk-footer__section govuk-grid-column-full">
+          <ul class="govuk-footer__list govuk-footer__list--columns-3" >
+            <li class="govuk-footer__list-item">
+              <a class="govuk-footer__link" href="#">
+                Navigation
+              </a>
+            </li>
+            <li class="govuk-footer__list-item">
+              <a class="govuk-footer__link" href="#">
+                About Kainos
+              </a>
+            </li>
+            <li class="govuk-footer__list-item">
+              <a class="govuk-footer__link" href="#">
+                Legal
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+{% endblock %}
+
+{% block bodyEnd %}
+  {% block scripts %}
+    {% include "includes/scripts.html" %}
+    {% block pageScripts %}{% endblock %}
+  {% endblock %}
+  </div>
+</div>
+{% endblock %}
