@@ -13,7 +13,6 @@ router.get('/jobroles', async (req, res) => {
     let data = [];
     try {
         data = await JobService.getJobRoles();
-        console.log(data)
     } catch (e) {
         res.locals.errormessage = "An error occured when retrieving the list of Job Roles"
     }
@@ -39,14 +38,15 @@ router.get('/jobspec/:id', async (req, res) => {
 // render the editjobroles.html page based on the role selected. Retrieve the role information, find the correct band level and 
 // job family based on the IDs returned and populate the form with the role's current information
 router.get('/editjobroles/:id' , async (req, res) => {
-    app.set('job_role_id', req.params.id)
-    let job_role_id_object = {job_role_id:app.get('job_role_id')}
-    let response = await JobService.getEditRole(app.get('job_role_id'));
+    //app.set('job_role_id', req.params.id)
+    console.log(req.params.id)
+    let job_role_id = req.params.id
+    //let job_role_id_object = {job_role_id:app.get('job_role_id')}
+    let response = await JobService.getEditRole(job_role_id);
     let BandsandJobFamiliesList = await JobService.getJobRoleInfo();
-    //let BandLevelJobFamily = await JobService.getBandAndFamily(BandsandJobFamiliesList,response.bandLevel,response.jobFamily);
-    response = Object.assign(response,job_role_id_object);
+    //response = Object.assign(response,job_role_id_object);
     console.log(response);
-    res.render('editjobroles', {data:response, formData: BandsandJobFamiliesList})
+    res.render('editjobroles', {data:response, formData: BandsandJobFamiliesList, job_role_id:job_role_id})
 });
 
 // validate entered infomrmation before being passed to the API. If validation fails, return to editjobroles.html with

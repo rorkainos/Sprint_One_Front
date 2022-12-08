@@ -51,20 +51,6 @@ module.exports.getEditRole = async function (jobID) {
      }    
 }
 
-//finds the job family name and band name associated with the IDs returned by getEditRole
-module.exports.getBandAndFamily = function (jobBandsandFamilies,band_level_id,job_family_id) { 
-    console.log(band_level_id)
-    console.log(job_family_id) 
-    let family_name_index = jobBandsandFamilies.jobFamilyList.findIndex(x => x.job_family_id == job_family_id);
-    let band_name_index = jobBandsandFamilies.bandList.findIndex(x => x.band_level_id == band_level_id);
-    console.log(family_name_index)
-    console.log(band_name_index)
-    let BandLevelJobFamily = {
-        family_name : jobBandsandFamilies.jobFamilyList[family_name_index].family_name,
-        band_name : jobBandsandFamilies.bandList[band_name_index].band_name
-    }
-   return BandLevelJobFamily;
-}
 
 // put request to edit job role, passes in job_role_id to get the correct 
 module.exports.putEditRole = async function (data, job_role_id) {
