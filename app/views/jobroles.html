@@ -22,13 +22,21 @@
   <div class="alert alert-danger">{{ errormessage }}</div>
 {% else %}
 
+  {% if deleteSuccess %} 
+  <div class="alert alert-success">{{ deleteSuccess }}</div>
+  {% endif %}  
+
+  {% if deleteErrorMessage %} 
+  <div class="alert alert-danger">{{ deleteErrorMessage }}</div>
+  {% endif %}  
     {% if jobroles and jobroles.length > 0 %}
-      <table class="govuk-table">
+      <table class="govuk-table" id="job-role-table">
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header govuk-!-width-one-half">Name</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Name</th>
             <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Band Level</th>
             <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Capability</th>
+            <th id="Delete" class="govuk-table__header govuk-!-width-one-fourth">Delete</th>
           </tr>
         </thead>
 
@@ -38,7 +46,26 @@
             <td id="{{row.name}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;"><a id="{{row.name}}-{{row.id}}-href" href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
             <td id="{{row.bandName}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.bandName}}</td>
             <td id="{{row.capability}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.capability}}</td>
+            <td id="delete-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">
+              <button id="delete-{{row.id}}-btn" onclick="document.getElementById('delete-{{row.id}}-btn-form').style.display='block'">Delete</button>
+              
+              <div id="delete-{{row.id}}-btn-form" class="modal">
+                <span onclick="document.getElementById('delete-{{row.id}}-btn-form').style.display='none'" class="close" title="Close Modal">×</span>
+                
+                <form id="delete-{{row.id}}-btn-form-component" class="modal-content" action="./deleteJobRole/{{row.id}}">
+                  
+                    <h1 id="delete-{{row.id}}-btn-form-heading">Delete The Job Role: {{row.name}}</h1>
+                    <p id="delete-{{row.id}}-btn-form-heading-text">Are you sure you want to delete this Job Role?</p>
+                  
+                    <div class="clearfix" id="delete-cancel-{{row.id}}">
+                      <button id="cancel-form-btn-{{row.id}}" type="button" onclick="document.getElementById('delete-{{row.id}}-btn-form').style.display='none'" class="cancelbtn">Cancel</button>
+                      <button id="delete-form-btn-{{row.id}}" type="submit" value="submit" onclick="document.getElementById('delete-{{row.id}}-btn-form').style.display='none'" class="deletebtn">Delete</button>
+                    </div>
+                </form>
+              </div>
+            </td>
           </tr>
+
             {% endfor %}
         </tbody>
       </table>
