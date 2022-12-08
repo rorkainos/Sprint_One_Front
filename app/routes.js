@@ -2,7 +2,6 @@ const express = require('express')
 const JobRoleValidator = require('./validator/JobRoleValidator')
 const UserValidator = require('./validator/UserValidator')
 const UserService = require('./service/UserService')
-
 const router = express.Router()
 
 // Add your routes here - above the module.exports line
