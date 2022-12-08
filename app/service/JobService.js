@@ -16,6 +16,18 @@ module.exports.getJobRoles = async function () {
     }
 }
 
+// insert new job role
+module.exports.insertJobRole = async function (data) {
+    try {
+        // post request to add new job role
+        const response = await axios.post(this.JOB_ROLE_ENDPOINT, data);
+        return response;
+    } catch {
+        // throw exception if call fails
+        throw new Error('Could not create new Job Roles.')
+    }
+}
+
 
 module.exports.getJobRoleInfo = async function () {
     try {
@@ -62,5 +74,13 @@ module.exports.putEditRole = async function (data, job_role_id) {
         // throw exception if call fails
         console.log(e)
         throw new Error('Could not create new Job Roles.')
+    }
+}
+
+module.exports.deleteJobRole = async function (jobID) {
+    try{
+        await axios.delete(this.JOB_ROLE_ENDPOINT + "/" + jobID);
+    }catch{ 
+        throw new Error('Could not delete Job Role');
     }
 }

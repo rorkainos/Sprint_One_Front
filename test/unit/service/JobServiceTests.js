@@ -2,6 +2,7 @@ var axios = require('axios');
 var MockAdapter = require('axios-mock-adapter');
 var chai = require('chai');
 const expect = chai.expect;
+const assert = chai.assert;
 const JobService = require('../../../app/service/JobService');
 
 describe('JobService', function () {
@@ -97,7 +98,7 @@ describe('JobService', function () {
         try {
           await JobService.getJobRoles();
         } catch (error) {
-          expect(error.message).to.equal('Could not get Job Roles');
+          expect(error.message).to.equal('Could not get Job Roles.');
         }
       })
     })
@@ -117,7 +118,7 @@ describe('JobService', function () {
           job_family_id: 1,
           band_level_id: 1
         }
-        const target = JobService.PUT_EDIT_ROLE + id;
+        const target = JobService.JOB_ROLE_ENDPOINT + id;
         mock.onPut(target, body).reply(201,1);
         var results = await JobService.putEditRole(body, id);
         expect(results.status).to.equal(201)
@@ -136,7 +137,7 @@ describe('JobService', function () {
           bandLevel: 1
         }
   
-        mock.onPut(JobService.PUT_EDIT_ROLE, body).reply(500);
+        mock.onPut(JobService.JOB_ROLE_ENDPOINT, body).reply(500);
         try {
           await JobService.putEditRole(body);
         } catch (error) {
@@ -178,8 +179,77 @@ describe('JobService', function () {
         }
       })
     })
+
+    describe('deleteJobRole', function () {
+    
+      it('should return error Could not delete Job Role', async () => {        
+        // mocking an error 500 response from backend
+
+        let id = '1';
+        var mock = new MockAdapter(axios);
+        mock.onDelete(JobService.JOB_ROLES + "/" + id).reply(500);
+        
+        try{
+          await JobService.deleteJobRole(id);
+        }catch(error){
+          expect(error.message).to.equal('Could not delete Job Role')
+        }
+      })
+
+      it('delete should return without error ', async () => {        
+        // mocking an error 500 response from backend
+
+        let id = '1';
+        var mock = new MockAdapter(axios);
+        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + "/" + id).reply(200);
+        
+        try{
+          await JobService.deleteJobRole(id);
+        }catch(error){
+          assert.fail('Exception should not have been thrown');
+        }
+      })
+    })
+
+    describe('insertJobRole', function () {
+
+      it('should receive 201 when job role inserted', async () => {
+    
+        var mock = new MockAdapter(axios);
+  
+        let body = {
+          jobRoleName: "Software Engineer",
+          jobSpec: "This is a new job",
+          jobSpecURL: "https://trello.com/c/VjAxt81I/12-us012-add-new-role-to-existing-job-family-and-band-8",
+          jobFamily: 1,
+          bandLevel: 1
+        }
+        mock.onPost(JobService.POST_JOB_ROLE, body).reply(201,1);
+        var results = await JobService.insertJobRole(body);
+        expect(results.status).to.equal(201)
+      })
+  
+      it('should return error could not create new Job Roles.', async () => {
+  
+        var mock = new MockAdapter(axios);
+  
+        let body = {
+          jobRoleName: "Software Engineer",
+          jobSpec: "This is a new job",
+          jobSpecURL: "https://trello.com/c/VjAxt81I/12-us012-add-new-role-to-existing-job-family-and-band-8",
+          jobFamily: 1,
+          bandLevel: 1
+        }
+  
+        mock.onPost(JobService.POST_JOB_ROLE, body).reply(500);
+        try {
+          await JobService.insertJobRole(body);
+        } catch (error) {
+          expect(error.message).to.equal('Could not create new Job Roles.');
+        }
+      })
+    })
   })
-
+  })
 })
 
-})
