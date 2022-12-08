@@ -1,0 +1,107 @@
+{% extends "layout_unbranded.html" %}
+
+{% block pageTitle %} 
+  Edit Job Role
+{% endblock %}
+
+{% block content %}
+
+  <h2 class="govuk-heading-l">Edit Job Role: {{data.jobRoleName}}</h2>
+    <script>console.log({{job_role_id}})</script>
+    <form name="jobRoleForm" action="/editjobroles" onsubmit=""  method="post">
+      <input type="hidden" value="{{data.job_role_id}}" name="job_role_id">
+      {# NAME ERROR HEADING #}
+      {% if error.nameError %}
+        <div class="govuk-error-message">{{ error.nameError }}</div>
+      {% endif %}
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label" for="jobRoleName">
+      Role Name
+    </label>
+        </h1>
+        <input class="govuk-input" id="jobRoleName" name="jobRoleName" type="text" value="{{data.jobRoleName}}">
+      </div>
+      {# SPEC ERROR HEADING #}
+      {% if error.specError %}
+      <div class="govuk-error-message">{{ error.specError }}</div>
+      {% endif %}
+      <div class="govuk-form-group">
+  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="jobSpec" >
+      Job Spec
+    </label>
+  </h1>
+  <textarea class="govuk-textarea" id="jobSpec" name="jobSpec" rows="5" aria-describedby="more-detail-hint" >{{data.jobSpec}}</textarea>
+</div>
+{# SPEC URL ERROR HEADING #}
+{% if error.specURLError %}
+  <div class="govuk-error-message">{{ error.specURLError }}</div>
+{% endif %}
+      <div class="govuk-form-group">
+        <h1 class="govuk-label-wrapper">
+          <label class="govuk-label" for="job_spec_url">
+      Job Spec URL
+    </label>
+        </h1>
+        <input class="govuk-input" id="jobSpecURL" name="jobSpecURL" type="text" value="{{data.jobSpecURL}}">
+      </div>
+      {# JOB FAMILY ERROR HEADING #}
+      {% if error.jobFamilyError %}
+        <div class="govuk-error-message">{{ error.jobFamilyError }}</div>
+      {% endif %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+<div class="govuk-form-group">
+  <label class="govuk-label" for="jobFamily">
+    Job Family
+  </label>
+  
+  <select class="govuk-select" id="jobFamily" name="jobFamily" value="{{data.jobFamily}}" >
+    {% for bl in formData.jobFamilyList %}
+    {% if bl.job_family_id == data.jobFamily %}
+     <option value="{{data.jobFamily}}">{{bl.family_name}}</option>   
+    {% endif %}
+    {% endfor %}
+    {% for bl in formData.jobFamilyList %}
+    <option value="{{bl.job_family_id}}">{{bl.family_name}}</option>
+    {% endfor %}
+  </select>
+</div>
+       
+</div>
+{# BAND LEVEL ERROR HEADING #}
+{% if error.bandLevelError %}
+  <div class="govuk-error-message">{{ error.bandLevelError }}</div>
+{% endif %}
+        <div class="govuk-grid-column-one-half">
+<div class="govuk-form-group">
+  <label class="govuk-label" for="bandLevel">
+    Band Level 
+  </label>
+  <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandLevel}}" >
+    {% for bl in formData.bandList %}
+    {% if bl.band_level_id == data.bandLevel %}
+     <option value="{{data.bandLevel}}">{{bl.band_name}}</option>   
+    {% endif %}
+    {% endfor %}
+    {% for bl in formData.bandList %}
+    <option value="{{bl.band_level_id}}">{{bl.band_name}}</option>
+    {% endfor %}
+  </select>
+</div>
+        </div>
+
+        
+       
+ 
+     
+
+      {{ govukButton({
+  text: "Save and continue"
+}) }}
+
+    </form>
+
+
+
+{% endblock %}

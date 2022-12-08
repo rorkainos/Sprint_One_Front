@@ -53,7 +53,7 @@ describe('JobService', function () {
     describe('getJobRoles', function () {
         
       it('should return list of job roles when getJobRoles called', async () => {
-
+  
         let data = [
             {name:"name1", bandlevel: 'b1', capability: "c1"},
             {name:"name2", bandlevel: 'b2', capability: "c2"},
@@ -63,8 +63,8 @@ describe('JobService', function () {
 
         // mocking a good response from the endpoint
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
-       
+        mock.onGet(JobService.GET_JOB_ROLES).reply(() => { return [200, data] });
+  
         var response = await JobService.getJobRoles()
         expect(response[0].name).to.equal('name1')
         expect(response[1].name).to.equal('name2')
@@ -78,29 +78,72 @@ describe('JobService', function () {
         expect(response[1].capability).to.equal('c2')
         expect(response[2].capability).to.equal('c3')
       })
-
+  
       it('should return empty list of job roles when getJobRoles called', async () => {
-
+  
         let data = [];
-        
+  
         // mocking a good response from the endpoint with an empty list returned
         var mock = new MockAdapter(axios);
-        mock.onGet(JobService.GET_JOB_ROLES).reply(() => {return [200, data]});
-       
+        mock.onGet(JobService.GET_JOB_ROLES).reply(() => { return [200, data] });
+  
         var response = await JobService.getJobRoles()
         expect(response).is.empty
       })
-
-      it('should return error Could not get Job Roles', async () => {        
+  
+      it('should return error Could not get Job Roles', async () => {
         // mocking an error 500 response from backend
         var mock = new MockAdapter(axios);
         mock.onGet(JobService.GET_JOB_ROLES).reply(500);
-       
-        try{
-          await JobService.getJobRoles()
-        }catch(error){
-          expect(error.message).to.equal('Could not get Job Roles.')
+        try {
+          await JobService.getJobRoles();
+        } catch (error) {
+          expect(error.message).to.equal('Could not get Job Roles.');
         }
+      })
+    })
+
+    describe('editRole', function () { 
+
+      it('should receive 201 when job role inserted', async () => {
+    
+        var mock = new MockAdapter(axios);
+
+        let id = 1;
+  
+        let body = {
+          name: "Software Engineer",
+          job_spec: "This is an edited job",
+          job_spec_url: "https://trello.com/c/VjAxt81I/12-us012-add-new-role-to-existing-job-family-and-band-8",
+          job_family_id: 1,
+          band_level_id: 1
+        }
+        const target = JobService.JOB_ROLE_ENDPOINT + id;
+        mock.onPut(target, body).reply(201,1);
+        var results = await JobService.editRole(body, id);
+        expect(results.status).to.equal(201)
+      })
+
+      it('should return error could not create new Job Roles.', async () => {
+  
+        var mock = new MockAdapter(axios);
+  
+        let body = {
+          job_role_id: "1",
+          name: "Software Engineer",
+          jobSpec: "This is a new job",
+          jobSpecURL: "https://trello.com/c/VjAxt81I/12-us012-add-new-role-to-existing-job-family-and-band-8",
+          jobFamily: 1,
+          bandLevel: 1
+        }
+  
+        mock.onPut(JobService.JOB_ROLE_ENDPOINT, body).reply(500);
+        try {
+          await JobService.editRole(body);
+        } catch (error) {
+          expect(error.message).to.equal('Could not create new Job Roles.');
+        }
+  
       })
     })
 
@@ -144,7 +187,7 @@ describe('JobService', function () {
 
         let id = '1';
         var mock = new MockAdapter(axios);
-        mock.onDelete(JobService.JOB_ROLES + "/" + id).reply(500);
+        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + id).reply(500);
         
         try{
           await JobService.deleteJobRole(id);
@@ -158,7 +201,7 @@ describe('JobService', function () {
 
         let id = '1';
         var mock = new MockAdapter(axios);
-        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + "/" + id).reply(200);
+        mock.onDelete(JobService.JOB_ROLE_ENDPOINT + id).reply(200);
         
         try{
           await JobService.deleteJobRole(id);
