@@ -12,12 +12,13 @@ module.exports.validateUser = function (user) {
         return { passwordError: "Password has to be at least 8 characters, have one upper case, one lower case and one special character." };
     }
 
+    let userID;
     if (user.role != '') {
-        user.role = JSON.parse(user.role).roleID
+        userID = JSON.parse(user.role).roleID
     }
 
     // role validation
-    if (user.role != 1 && user.role != 2) {
+    if (userID != 1 && userID != 2) {
         return { roleError: "Role must be selected." };
     }
 
