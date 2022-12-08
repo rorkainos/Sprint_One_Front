@@ -5,18 +5,17 @@
 {{ jobSpecification.job_role }} Job Specification
 {% endblock %}
 
-
 {% block content %}
 
-<h2>{{ jobSpecification.job_role }} Job Specification</h2>
+<h2 id="specificationHeading">{{ jobSpecification.job_role }} Job Specification</h2>
 
 {% if errormessage %} 
-  <div class="alert alert-danger">{{ errormessage }}</div>
+  <div class="alert alert-danger" id="errorMessage">{{ errormessage }}</div>
 {% else %}
-  <div>{{ jobSpecification.job_spec }}</div>
+  <div id="specification">{{ jobSpecification.job_spec }}</div>
 
   </br>
-  <td><a href="{{ jobSpecification.job_spec_link }}" target="_blank">See More . . . </a></td>
+  <td id="specificationURL"><a id="specificationURLLink" href="{{ jobSpecification.job_spec_link }}" target="_blank">See More . . . </a></td>
 {% endif %}
 
 {% endblock %}

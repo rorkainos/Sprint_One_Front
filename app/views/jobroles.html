@@ -8,7 +8,11 @@
 
 {% block content %}
 
-<h2>List of Job Roles</h2>
+<h2 id="job-role-heading">List of Job Roles</h2>
+
+{% if inserted %} 
+  <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
+{% endif %}
 
 {% if inserted %} 
   <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
@@ -31,9 +35,9 @@
         <tbody class="govuk-table__body">
           {% for row in jobroles %}
           <tr class="govuk-table__row"> 
-            <td  class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;"><a  href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
-            <td class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.bandName}}</td>
-            <td class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.capability}}</td>
+            <td id="{{row.name}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;"><a id="{{row.name}}-{{row.id}}-href" href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
+            <td id="{{row.bandName}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.bandName}}</td>
+            <td id="{{row.capability}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.capability}}</td>
           </tr>
             {% endfor %}
         </tbody>
