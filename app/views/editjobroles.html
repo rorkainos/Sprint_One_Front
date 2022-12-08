@@ -56,13 +56,13 @@
   </label>
   
   <select class="govuk-select" id="jobFamily" name="jobFamily" value="{{data.jobFamily}}" >
-    {% if data.jobFamily != null %}
-      <option value={{data.jobFamily}}>{{data.family_name}}</option>
-    {% else %}
-      <option value="" >Select one...</option>
-    {% endif %}
     {% for bl in formData.jobFamilyList %}
-      <option value="{{bl.job_family_id}}">{{bl.family_name}}</option>
+    {% if bl.job_family_id == data.jobFamily %}
+     <option value="{{data.jobFamily}}">{{bl.family_name}}</option>   
+    {% endif %}
+    {% endfor %}
+    {% for bl in formData.jobFamilyList %}
+    <option value="{{bl.job_family_id}}">{{bl.family_name}}</option>
     {% endfor %}
   </select>
 </div>
@@ -78,15 +78,13 @@
     Band Level 
   </label>
   <select class="govuk-select" id="bandLevel" name="bandLevel" value="{{data.bandLevel}}" >
-    {% if data.bandLevel != null %}
-    {% endif %}
     {% for bl in formData.bandList %}
-    <script> console.log( '{{bl.band_name}}' )</script>
-    <script> console.log( '{{bl.band_level_id}}' )</script>
-    <script> console.log( '{{data.bandLevel}}' )</script>
-    {% if bl.band_level_id == data.jobFamily%}
-     <option value="{{data.bandLevel}}">{{bl.band_name}}</option>
+    {% if bl.band_level_id == data.bandLevel %}
+     <option value="{{data.bandLevel}}">{{bl.band_name}}</option>   
     {% endif %}
+    {% endfor %}
+    {% for bl in formData.bandList %}
+    <option value="{{bl.band_level_id}}">{{bl.band_name}}</option>
     {% endfor %}
   </select>
 </div>

@@ -43,8 +43,9 @@ router.get('/editjobroles/:id' , async (req, res) => {
     let job_role_id_object = {job_role_id:app.get('job_role_id')}
     let response = await JobService.getEditRole(app.get('job_role_id'));
     let BandsandJobFamiliesList = await JobService.getJobRoleInfo();
-    let BandLevelJobFamily = await JobService.getBandAndFamily(BandsandJobFamiliesList,response.bandLevel,response.jobFamily);
-    response = Object.assign(response,BandLevelJobFamily,job_role_id_object);
+    //let BandLevelJobFamily = await JobService.getBandAndFamily(BandsandJobFamiliesList,response.bandLevel,response.jobFamily);
+    response = Object.assign(response,job_role_id_object);
+    console.log(response);
     res.render('editjobroles', {data:response, formData: BandsandJobFamiliesList})
 });
 
