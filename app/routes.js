@@ -120,11 +120,11 @@ router.post('/registration', async (req, res) => {
     if (Object.keys(error).length == 0) {
 
         try {
-            console.log(user)
+            req.body.role = user.role.roleID
             // parse user role id
-            user.role = user.role.roleID
+            console.log(req.body)
             // register new user
-            await UserService.register(user)
+            await UserService.register(req.body)
             // redirect to job roles page
             res.redirect('index')
         } catch {
