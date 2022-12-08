@@ -126,7 +126,7 @@ router.post('/registration', async (req, res) => {
             // register new user
             await UserService.register(user)
             // redirect to job roles page
-            res.render('jobroles', { registered: true, jobroles: await JobService.getJobRoles() })
+            res.redirect('index')
         } catch {
             // render form again with insertion error displayed
             let error = { "registrationError": "Could not register new user, please try again." }
