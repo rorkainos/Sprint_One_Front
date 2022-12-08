@@ -25,65 +25,17 @@ router.get('/jobroles', async (req, res) => {
         if(req.session.deleteFailure) {
             res.locals.deleteErrorMessage = "An error occured when retrieving the job specification";
             req.session.deleteFailure = null;
-        }   
-    
+        }  
+        
+        if(req.session.editFailure) {
+            res.locals.editFailureMessage = "Editing A Job Role Failed";
+            req.session.editFailure = null;
+        }
     } catch (e) {
         res.locals.errormessage = "An error occured when retrieving the list of Job Roles";
     }
 
     res.render('jobroles', { jobroles: data } ) 
-});
-
-router.get('/addjobrole', async (req, res) => {
-
-    // get data for populating job family and band level dropdowns
-    let data = await JobService.getJobRoleInfo();
-    // render form page
-    res.render('addjobrole', { formData: data });
-
-});
-
-// render the addjobroles.html page 
-router.post('/addjobrole', async (req, res) => {
-
-    // validate job role
-    let error = new JobRoleValidator.validateJobRole(req.body);
-
-    if (Object.keys(error).length !== 0) {
-        // get data for populating job family and band level dropdowns
-        let data = await JobService.getJobRoleInfo();
- 
-        // parse job family and band level data passed from form into JSON
-        if (req.body.jobFamily != '') {
-            req.body.jobFamily = JSON.parse(req.body.jobFamily)
-        }
-        if (req.body.bandLevel != '') {
-            req.body.bandLevel = JSON.parse(req.body.bandLevel)
-        }
-
-        // render page again with errors and previous form data
-        res.render('addjobrole', { error: error, data: req.body, formData: data })
-    } else {
-
-        // retain form data in case insert fails
-        let insertData = req.body;
-
-        // remove names from job family and band level fields in response data
-        req.body.jobFamily = JSON.parse(req.body.jobFamily).jobFamilyID;
-        req.body.bandLevel = JSON.parse(req.body.bandLevel).bandLevelID;
-
-        try {
-            // insert new job
-            await js.insertJobRole(req.body)
-            // redirect to job roles page
-            let data = await JobService.getJobRoles()
-            res.render('jobroles', {inserted:true, jobroles: data})
-        } catch (e) {
-            // render form again with insertion error displayed
-            let error = { "insertError": "Could not insert new job role, please try again." }
-            res.render('addjobrole', { error: error, data: req.body, formData: insertData })
-        }
-    }
 });
 
 // render the jobSpec Page with id and name passed in the request
@@ -112,7 +64,7 @@ router.get('/editjobroles/:id' , async (req, res) => {
     res.render('editjobroles', {data:response, formData: BandsandJobFamiliesList, job_role_id:job_role_id})
 });
 
-// validate entered infomrmation before being passed to the API. If validation fails, return to editjobroles.html with
+// validate entered information before being passed to the API. If validation fails, return to editjobroles.html with
 // an error message calling out the field that failed validation
 router.post('/editjobroles/', async (req, res) => {
     let error = new JobRoleValidator.validateJobRole(req.body);    
@@ -125,9 +77,15 @@ router.post('/editjobroles/', async (req, res) => {
         
         res.render('editjobroles' , {error:error , formData: BandsandJobFamiliesList} )
      }else{
-    JobService.putEditRole(req.body, req.body.job_role_id);
-    data = await JobService.getJobRoles();
-    res.render('jobroles', {success:true, jobroles:data} )
+
+        try{
+            await JobService.putEditRole(req.body, req.body.job_role_id);
+            data = await JobService.getJobRoles();
+            res.render('jobroles', {success:true, jobroles:data} )
+        }catch(e){
+            req.session.editFailure = true;
+            res.redirect('/jobroles')
+        }
     }
 });
 

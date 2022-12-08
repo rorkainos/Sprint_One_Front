@@ -29,10 +29,16 @@
   {% if deleteErrorMessage %} 
   <div class="govuk-error-message">{{ deleteErrorMessage }}</div>
   {% endif %}  
+
+  {% if editFailureMessage %} 
+  <div class="govuk-error-message">{{ editFailureMessage }}</div>
+  {% endif %}  
+
     {% if jobroles and jobroles.length > 0 %}
       <table class="govuk-table" id="job-role-table">
         <thead class="govuk-table__head">
           <tr class="govuk-table__row">
+            <th id="Edit" class="govuk-table__header govuk-!-width-one-fourth">Edit</th>
             <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Name</th>
             <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Band Level</th>
             <th scope="col" class="govuk-table__header govuk-!-width-one-fourth">Capability</th>
@@ -43,6 +49,7 @@
         <tbody class="govuk-table__body">
           {% for row in jobroles %}
           <tr class="govuk-table__row"> 
+            <td id="edit-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;"><a href="./editjobroles/{{row.id}}">edit</a></td>
             <td id="{{row.name}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;"><a id="{{row.name}}-{{row.id}}-href" href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
             <td id="{{row.bandName}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.bandName}}</td>
             <td id="{{row.capability}}-{{row.id}}" class="govuk-table__cell govuk-input--width-20" style="overflow: hidden !important;">{{row.capability}}</td>

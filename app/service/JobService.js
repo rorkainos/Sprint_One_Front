@@ -72,7 +72,7 @@ module.exports.putEditRole = async function (data, job_role_id) {
         return response;
     } catch (e){
         // throw exception if call fails
-        console.log(e)
+        console.log(e);
         throw new Error('Could not create new Job Roles.')
     }
 }
