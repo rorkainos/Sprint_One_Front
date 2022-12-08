@@ -7,8 +7,9 @@
 {% block content %}
 
   <h2 class="govuk-heading-l">Edit Job Role</h2>
-    <script>console.log(job_role_id)</script>
-    <form name="jobRoleForm" action="./{{job_role_id.job_role_id}}" onsubmit=""  method="post">
+    <script>console.log({{job_role_id}})</script>
+    <form name="jobRoleForm" action="/editjobroles" onsubmit=""  method="post">
+      <input type="hidden" value="{{data.job_role_id}}" name="job_role_id">
       {# NAME ERROR HEADING #}
       {% if error.nameError %}
         <div class="govuk-error-message">{{ error.nameError }}</div>
