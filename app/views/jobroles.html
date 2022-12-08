@@ -11,23 +11,19 @@
 <h2 id="job-role-heading">List of Job Roles</h2>
 
 {% if inserted %} 
-  <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
-{% endif %}
-
-{% if inserted %} 
-  <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
+  <p class="govuk-success-message" id="insertMessage">New job role inserted!</p>
 {% endif %}
 
 {% if errormessage %} 
-  <div class="alert alert-danger">{{ errormessage }}</div>
+  <div class="govuk-error-message">{{ errormessage }}</div>
 {% else %}
 
   {% if deleteSuccess %} 
-  <div class="alert alert-success">{{ deleteSuccess }}</div>
+  <div class="govuk-success-message">{{ deleteSuccess }}</div>
   {% endif %}  
 
   {% if deleteErrorMessage %} 
-  <div class="alert alert-danger">{{ deleteErrorMessage }}</div>
+  <div class="govuk-error-message">{{ deleteErrorMessage }}</div>
   {% endif %}  
     {% if jobroles and jobroles.length > 0 %}
       <table class="govuk-table" id="job-role-table">
