@@ -111,6 +111,7 @@ router.post('/registration', async (req, res) => {
     let user = {
         ...req.body
     }
+    console.log(user)
     user.role = JSON.parse(user.role)
 
     // VALIDATE USER

@@ -62,7 +62,7 @@
       {# ROLE SELECT #}
       <select class="govuk-select" id="Role" name="role">
         {% if (formData.role) %}
-          <option value='{"roleID" 0: {{formData.role.roleID}}, "roleName": "{{formData.role.roleName}}"}' selected>{{formData.role.roleName}}</option>
+          <option value='{"roleID": {{formData.role.roleID}}, "roleName": "{{formData.role.roleName}}"}' selected>{{formData.role.roleName}}</option>
         {% else %}
           <option value="0" selected>Select one..</option>
         {% endif %};
