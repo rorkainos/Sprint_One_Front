@@ -13,7 +13,11 @@
 
 {% block content %}
 
-<h2>List of Job Roles</h2>
+<h2 id="job-role-heading">List of Job Roles</h2>
+
+{% if inserted %} 
+  <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
+{% endif %}
 
 {% if inserted %} 
   <p class="alert alert-success" id="insertMessage">New job role inserted!</p>
@@ -24,21 +28,21 @@
 {% else %}
 
     {% if jobroles and jobroles.length > 0 %} 
-      <table class="table">
+      <table class="table" id="job-role-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Band Level</th>
-            <th>Capability</th>
+            <th id="Name">Name</th>
+            <th id="Band Level">Band Level</th>
+            <th id="Capability">Capability</th>
           </tr>
         </thead>
 
         <tbody>
           {% for row in jobroles %}
           <tr> 
-            <td><a href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
-            <td>{{row.bandName}}</td>
-            <td>{{row.capability}}</td>
+            <td id="{{row.name}}-{{row.id}}"><a id="{{row.name}}-{{row.id}}-href" href="./jobSpec/{{row.id}}" target="_blank">{{row.name}}</a></td>
+            <td id="{{row.bandName}}-{{row.id}}">{{row.bandName}}</td>
+            <td id="{{row.capability}}-{{row.id}}">{{row.capability}}</td>
           </tr>
             {% endfor %}
         </tbody>

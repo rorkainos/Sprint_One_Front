@@ -2,6 +2,7 @@ const express = require('express')
 const JobRoleValidator = require('./validator/JobRoleValidator')
 const UserValidator = require('./validator/UserValidator')
 const UserService = require('./service/UserService')
+
 const router = express.Router()
 
 // Add your routes here - above the module.exports line
@@ -33,14 +34,13 @@ router.get('/addjobrole', async (req, res) => {
 // render the addjobroles.html page 
 router.post('/addjobrole', async (req, res) => {
 
-
     // validate job role
     let error = new JobRoleValidator.validateJobRole(req.body);
 
     if (Object.keys(error).length !== 0) {
         // get data for populating job family and band level dropdowns
         let data = await JobService.getJobRoleInfo();
-
+ 
         // parse job family and band level data passed from form into JSON
         if (req.body.jobFamily != '') {
             req.body.jobFamily = JSON.parse(req.body.jobFamily)
@@ -65,7 +65,7 @@ router.post('/addjobrole', async (req, res) => {
             await js.insertJobRole(req.body)
             // redirect to job roles page
             let data = await JobService.getJobRoles()
-            res.render('jobroles', { inserted: true, jobroles: data })
+            res.render('jobroles', {inserted:true, jobroles: data})
         } catch (e) {
             // render form again with insertion error displayed
             let error = { "insertError": "Could not insert new job role, please try again." }

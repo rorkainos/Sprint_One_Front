@@ -1,7 +1,7 @@
  <!DOCTYPE html>
  <html lang="en">
  <head>
-   <title>{{ jobSpecification.job_role }} Job Specification</title>
+   <title id="specificationTitle">{{ jobSpecification.job_role }} Job Specification</title>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,15 +11,15 @@
 
 {% block content %}
 
-<h2>{{ jobSpecification.job_role }} Job Specification</h2>
+<h2 id="specificationHeading">{{ jobSpecification.job_role }} Job Specification</h2>
 
 {% if errormessage %} 
-  <div class="alert alert-danger">{{ errormessage }}</div>
+  <div class="alert alert-danger" id="errorMessage">{{ errormessage }}</div>
 {% else %}
-  <div>{{ jobSpecification.job_spec }}</div>
+  <div id="specification">{{ jobSpecification.job_spec }}</div>
 
   </br>
-  <td><a href="{{ jobSpecification.job_spec_link }}" target="_blank">See More . . . </a></td>
+  <td id="specificationURL"><a id="specificationURLLink" href="{{ jobSpecification.job_spec_link }}" target="_blank">See More . . . </a></td>
 {% endif %}
 
 {% endblock %}
