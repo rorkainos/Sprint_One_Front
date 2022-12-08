@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main, 037-deploy-frontend ]
+    branches: [ main ]
 
 jobs:
 
