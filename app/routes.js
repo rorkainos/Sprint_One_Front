@@ -39,7 +39,6 @@ router.get('/jobspec/:id', async (req, res) => {
 // job family based on the IDs returned and populate the form with the role's current information
 router.get('/editjobroles/:id' , async (req, res) => {
     //app.set('job_role_id', req.params.id)
-    console.log(req.params.id)
     let job_role_id = req.params.id
     //let job_role_id_object = {job_role_id:app.get('job_role_id')}
     let response = await JobService.getEditRole(job_role_id);
@@ -51,17 +50,16 @@ router.get('/editjobroles/:id' , async (req, res) => {
 // validate entered infomrmation before being passed to the API. If validation fails, return to editjobroles.html with
 // an error message calling out the field that failed validation
 router.post('/editjobroles/', async (req, res) => {
-    console.log("ID: "+req.body.job_role_id)
     let error = new JobRoleValidator.validateJobRole(req.body);    
     if (Object.keys(error).length !== 0) {
         let job_role_id_object = {job_role_id:app.get('job_role_id')}
         let BandsandJobFamiliesList = await JobService.getJobRoleInfo();
         //let BandLevelJobFamily = await JobService.getBandAndFamily(BandsandJobFamiliesList,req.body.jobFamily,req.body.bandLevel);
        // req.body = Object.assign(req.body,BandLevelJobFamily, job_role_id_object);
-        res.render('editjobroles/', {error: error, data:req.body, formData: BandsandJobFamiliesList})
+        res.redirect('editjobroles/'+req.body.job_role_id)
      }else{
     JobService.putEditRole(req.body, req.body.job_role_id);
-    res.redirect('/jobroles')
+    res.redirect('/jobroles', {success:true} )
     }
 });
 
