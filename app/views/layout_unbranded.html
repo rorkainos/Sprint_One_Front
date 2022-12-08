@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block headIcons %}
-<link rel="shortcut icon" href="{{ asset_path }}images/unbranded.ico?0.18.3" type="image/x-icon" />
+<link rel="shortcut icon" href="{{ asset_path }}images/favicon.ico" type="image/x-icon" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Galano+Grotesque">
 {% endblock %}
 
@@ -9,6 +9,7 @@
 <!--[if lte IE 8]><link href="/public/stylesheets/unbranded-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if gt IE 8]><!-->
 <link href="/unbranded.css" rel="stylesheet" type="text/css" />
+
 <!--<![endif]-->
 
 {% for stylesheetUrl in extensionConfig.stylesheets %}
