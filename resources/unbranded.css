@@ -3360,7 +3360,7 @@ x:-moz-any-link {
 .govuk-footer__link:focus {
   outline: 3px solid transparent;
   color: #0b0c0c;
-  background-color: #ffdd00;
+  background-color: #ffdd0000;
   box-shadow: 0 -2px #ffdd00, 0 4px #0b0c0c;
   text-decoration: none;
 }
@@ -8560,21 +8560,29 @@ x:-moz-any-link {
 }
 
 #kainos_footer{
-  /* background-color: white; */
+  position: absolute;
   background-image: url('/kainos_header.png');
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
-  overflow: hidden;
   bottom: 0;
   width: 100%;
-  height: 20vh;   /* Height of the footer */
+  height: 3rem;           /* Footer height */
+  overflow: hidden;
 }
 
-body{
+/* body{
   height: 75vh;
-}
+} */
 
 #academy-logo{
   width: 100%;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 3rem;    /* Footer height */
 }
