@@ -10,8 +10,4 @@ usage-data-config.json
 # General ignores
 .DS_Store
 .idea
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 .vscode
