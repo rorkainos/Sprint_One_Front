@@ -8581,7 +8581,7 @@ x:-moz-any-link {
   background-size: cover;
   bottom: 0;
   width: 100%;
-  height: 3rem;           /* Footer height */
+  height: 7rem;           /* Footer height */
   overflow: hidden;
 }
 
@@ -8599,5 +8599,5 @@ x:-moz-any-link {
 }
 
 #content-wrap {
-  padding-bottom: 3rem;    /* Footer height */
+  padding-bottom: 7rem;    /* Footer height */
 }
